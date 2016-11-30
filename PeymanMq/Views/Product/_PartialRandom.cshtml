@@ -1,0 +1,27 @@
+﻿@model List<Product> 
+
+@foreach (var item in Model)
+{
+    <div class="col-xs-6 col-md-3">
+        <div class="products">
+            <div class="offer-focus">
+                <img class="img-responsive" src="@(item.FileUploadID == null ? "/Content/Images/no-pic.jpg?w=343&h=267&mode=pad&scale=both" : string.Format("/Data/Admin/{0}?w=343&h=267&mode=pad&scale=both", item.FileUpload.RealName))" alt="@item.Title" />
+                <div class="offer-filter">
+                    <div class="offer-hover">
+                        <div class="offer-hover2">
+                            <a class="fancybox" href="@Url.Action(MVC.Product.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() }))">
+                                <i class="fa fa-link" title="مشاهده محصول"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3>
+                <a href="@Url.Action(MVC.Product.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() }))" title="@item.Title">
+                    @(item.Title.Length > 22 ? (item.Title.Substring(0, 22) + " ...") : item.Title)
+                    <span>کد محصول: @item.Code</span>
+                </a>
+            </h3>
+        </div>
+    </div>
+}

@@ -1,0 +1,132 @@
+﻿@model OrderDetailsVM
+
+@{
+    ViewBag.Title = "نمایش جزئیات سفارش";
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="page-head">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+    <div class="cl-mcont">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="block-flat">
+                    @if (Model != null)
+                    {
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="btn-group pull-left">
+                                    <a class="btn btn-sm btn-primary" href="@Url.Action(MVC.Admin.Order.Index())">
+                                        <i class="fa fa-arrow-left"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-default" href="@Url.Action(MVC.Admin.Order.Index())">مشاهده لیست</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="table-responsive">
+                                <table class="table no-border table-responsive">
+                                    <tbody class="no-border-x">
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.ID)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.ID)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Date)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.Date)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.FullName)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.FullName)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Email)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.Email)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.MobileNumber)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.MobileNumber)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Phone)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.Phone)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.OrderDate)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.OrderDate)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.ProductCategory)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.ProductCategory)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Product)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.Product)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Value)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.Value)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Color)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.Color)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Description)</td>
+                                            <td class="col-sm-10 preLine">@Model.Description</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Rank)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.Rank)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.RequestStatus)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.RequestStatus)</td>
+                                        </tr>
+                                        @if (!string.IsNullOrWhiteSpace(Model.FileName))
+                                        {
+                                            <tr>
+                                                <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.FileName)</td>
+                                                <td class="col-sm-10">
+                                                    @using (Html.BeginForm(MVC.Admin.Order.Download().AddRouteValues(new { fileName = Model.FileName }), FormMethod.Post))
+                                                    {
+                                                        <button type="submit" class="btn btn-success">
+                                                            <i class="fa fa-download"></i> دانلود فایل
+                                                        </button>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="btn-group pull-left">
+                                    <a class="btn btn-sm btn-primary" href="@Url.Action(MVC.Admin.Order.Index())">
+                                        <i class="fa fa-arrow-left"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-default" href="@Url.Action(MVC.Admin.Order.Index())">مشاهده لیست</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="jumbotron">
+                                <p>رکورد مورد نظر یافت نشد</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

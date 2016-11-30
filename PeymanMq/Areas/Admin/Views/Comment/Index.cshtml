@@ -1,0 +1,113 @@
+﻿@model Comment
+
+@{
+    ViewBag.Title = ViewBag.ID == null ? "کل نظرات" : "نظرات خبر: " + Blog.SelectTitle(ViewBag.ID);
+}
+
+@section HeadPanel {
+    <script id="entry-template" type="text/x-handlebars-template">
+        {{#each List}}
+        <div class="commnetRow">
+            <div class="chat-conv">
+                <span class="c-avatar" title="@Html.DisplayNameFor(model => model.FullName)">{{FullName}}</span>
+                <div class="c-bubble">
+                    <div class="preLine">{{Body}}</div>
+                    <div title="شماره خبر: {{BlogID}}">
+                        <small><i class="fa fa-hashtag"></i> {{BlogTitle}}</small>
+                    </div>
+                    <div>
+                        <small title="@Html.DisplayNameFor(model => model.Date)"><i class="fa fa-calendar"></i> {{Date}}</small>
+                        | <small title="@Html.DisplayNameFor(model => model.Email)"><i class="fa fa-envelope"></i> {{Email}}</small>
+                        | <small title="@Html.DisplayNameFor(model => model.Status)"><i class="fa fa-question-circle"></i> {{Status}}</small>
+                    </div>
+                    <hr class="no-margin" />
+                    <div class="spacer1">
+                        <button class="btn btn-transparent btn-xs btnDeleteComment" type="button" data-toggle="tooltip" title="حذف" data-placement="bottom" data-id="{{ID}}">
+                            <small><i class="fa fa-times"></i></small>
+                        </button>
+                        <button class="btn btn-transparent btn-xs btnReplyComment" type="button" data-toggle="tooltip" title="پاسخ" data-placement="bottom" data-id="{{ID}}">
+                            <small><i class="fa fa-reply"></i></small>
+                        </button>
+                        {{#ifActive Status}}
+                        <button class="btn btn-transparent btn-xs btnActiveComment" type="button" data-toggle="tooltip" title="غیر فعال" data-placement="bottom" data-id="{{ID}}" data-type="@Status.DeActive" data-msg="غیر فعال شد">
+                            <small><i class="fa fa-check"></i></small>
+                        </button>
+                        {{else}}
+                        <button class="btn btn-transparent btn-xs btnActiveComment" type="button" data-toggle="tooltip" title="تایید" data-placement="bottom" data-id="{{ID}}" data-type="@Status.Active" data-msg="تایید شد">
+                            <small><i class="fa fa-check"></i></small>
+                        </button>
+                        {{/ifActive}}
+                        <small class="display-none"></small>
+                    </div>
+                    <span></span>
+                </div>
+            </div>
+            {{#if Answer}}
+            <div class="chat-conv sent">
+                <span class="c-avatar">مدیر</span>
+                <div class="c-bubble">
+                    <div class="preLine text-right">{{Answer}}</div>
+                    <div title="@Html.DisplayNameFor(model => model.AnswerDate)">
+                        <small>{{AnswerDate}}</small>
+                    </div>
+                    <span></span>
+                </div>
+            </div>
+            {{/if}}
+            <div class="chat-in display-none">
+                <img src='/Content/Admin/Images/loading2.gif' />
+            </div>
+        </div>
+        {{/each}}
+    </script>
+    <script type="text/javascript">
+        var deleteUrl = '@Url.Action(MVC.Admin.Comment.Delete())';
+        var deleteConfirmMsg = 'آیا از حذف این کامنت مطمئن هستید؟';
+        var updateStatusUrl = '@Url.Action(MVC.Admin.Comment.UpdateStatus())';
+        var updateStatusConfirmMsg = 'آیا از انجام این عملیات مطمئن هستید؟';
+        var contentElement = "<img src='/Content/Admin/Images/loading2.gif' />";
+        var detailsUrl = '@Url.Action(MVC.Admin.Comment.Details())';
+        var updateUrl = '@Url.Action(MVC.Admin.Comment.Update())';
+    </script>
+}
+
+<input type='hidden' value='@ViewBag.ID' id='hdnRecordId' />
+<div id="pcont" class="container-fluid">
+    <div class="page-head">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+    <div class="cl-mcont">
+        <div class="row dash-cols">
+            <div class="col-sm-12 col-md-12">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li><a href="#grdData" data-href="@Url.Action(MVC.Admin.Comment.Select())" data-status="@Convert.ToByte(Enum.Parse(typeof (Status), Enum.GetName(typeof(Status), Status.OnProgress)))">@Status.OnProgress.DisplayName()</a></li>
+                    <li><a href="#grdData" data-href="@Url.Action(MVC.Admin.Comment.Select())" data-status="@Convert.ToByte(Enum.Parse(typeof (Status), Enum.GetName(typeof(Status), Status.DeActive)))">@Status.DeActive.DisplayName()</a></li>
+                    <li><a href="#grdData" data-href="@Url.Action(MVC.Admin.Comment.Select())" data-status="@Convert.ToByte(Enum.Parse(typeof (Status), Enum.GetName(typeof(Status), Status.Active)))">@Status.Active.DisplayName()</a></li>
+                </ul>
+                <div class="tab-content">
+                    @Html.Partial(MVC.Admin.Shared.Views._PartialPageSize)
+                    <ul class="pagination"></ul>
+                    <div class="loadingPart">
+                        <div class="loadingHolder">
+                            <img src="~/Content/Admin/Images/loading1.gif" width="30" height="30" />
+                            <p>لطفا چند لحظه صبر کنید</p>
+                        </div>
+                    </div>
+                    <h4 class="emptyResult"></h4>
+                    <div id="grdData" class="tab-pane active cont fade">
+                        <div class="chat-wi">
+                            <div class="chat-space">
+                                <div class="chat-content content tbody"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="pagination"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿Domain: www.peymanmq.com
+
+Host Address: windows1.mashhadhost.com		user : peymanmq		pass : Admin@123
+
+Email Address: mail.peymanmq.com:81
+user: info@peymanmq.com			pass: Peym@nMQAdmin95
+user: peymanmq@gmail.com		pass: Peym@nMQAdmin95
+
+Ftp Address: ftp.peymanmq.com		user: peymanmq_main		pass: 79gBt^34	port: 21
+
+Manage Address: www.peymanmq.com/admin/login		user: ariafanavari@gmail.com	pass: aj4555c
+
+Connection String: Server=85.185.93.86,2014;Database=peymanmq_database;Uid=peymanmq_admin;Password=l5R4$x^%;

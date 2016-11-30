@@ -1,0 +1,9 @@
+﻿@model Tuple<string, IList<SelectListItem>>
+
+@foreach (var item in Model.Item2)
+{
+    <label for="@string.Format("{0}_{1}", Model.Item1, item.Value)" class="checkbox-inline">
+        <input type="checkbox" name="@Model.Item1" id="@string.Format("{0}_{1}", Model.Item1, item.Value)" class="icheck" value="@item.Value" @if (item.Selected) { <text> checked="checked" </text> } />
+        @item.Text
+    </label>
+}

@@ -1,0 +1,49 @@
+﻿@model Contact
+
+@if (Model == null)
+{
+    <div class="head">
+        <h3>
+            اطلاعات رکورد مورد نظر یافت نشد
+            <span>
+                <a href="#" class="btnBackToMail" title="بازگشت به لیست"><i class="fa fa-arrow-left"></i></a>
+            </span>
+        </h3>
+    </div>
+}
+else
+{
+    <div class="head">
+        <h3>
+            @Html.DisplayFor(model => model.FullName)
+            <span>
+                <a href="#" class="btnBackToMail" title="بازگشت به لیست"><i class="fa fa-arrow-left"></i></a>
+            </span>
+        </h3>
+        <h4>@Html.DisplayFor(model => model.Subject)</h4>
+        <h5>
+            <span class="pull-right">
+                <i class="fa fa-calendar" title="@Html.DisplayNameFor(model => model.Date)"></i> @Model.Date.ToPersianDate("d MMMM yy - HH:mm", false)
+                @if (Model.DeleteStatus == Status.DeActive)
+                {
+                    <a href="#" class="btnStar" data-id="@Model.ID" title="برچسب">
+                        <i class="fa @(Model.StarStatus == Status.Active ? " fa-star active" : " fa-star-o")"></i>
+                    </a>
+                }
+            </span>
+            <span class="pull-left">
+                @Html.DisplayFor(model => model.Email) <i class="fa fa-envelope" title="@Html.DisplayNameFor(model => model.Email)"></i>
+            </span>
+            <span class="pull-left">
+                @Html.DisplayFor(model => model.Phone) <i class="fa fa-phone" title="@Html.DisplayNameFor(model => model.Phone)"></i>
+            </span>
+            <span class="pull-left">
+                @Html.DisplayFor(model => model.Mobile) <i class="fa fa-mobile-phone" title="@Html.DisplayNameFor(model => model.Mobile)"></i>
+            </span>
+        </h5>
+        <div class="clearfix"></div>
+    </div>
+    <div class="mail">
+        <p class="preLine">@Html.DisplayFor(model => model.Body)</p>
+    </div>
+}

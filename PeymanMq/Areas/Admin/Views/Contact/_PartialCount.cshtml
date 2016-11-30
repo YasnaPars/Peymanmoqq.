@@ -1,0 +1,20 @@
+﻿@model Tuple<int, int, int>
+
+<li class="@Html.IsSelected(actions: MVC.Admin.Contact.ActionNames.Inbox, controllers: MVC.Admin.Contact.Name, cssClass: "active")">
+    <a href="@Url.Action(MVC.Admin.Contact.Inbox())">
+        <span class="label label-success pull-left" title="خوانده نشده">@Model.Item1</span>
+        <i class="fa fa-inbox fa-lg"></i> صندوق دریافت
+    </a>
+</li>
+<li class="@Html.IsSelected(actions: MVC.Admin.Contact.ActionNames.Star, controllers: MVC.Admin.Contact.Name, cssClass: "active")">
+    <a href="@Url.Action(MVC.Admin.Contact.Star())">
+        <span class="label label-warning pull-left" title="خوانده نشده">@Model.Item2</span>
+        <i class="fa fa-star-o fa-lg"></i> برچسب خورده ها
+    </a>
+</li>
+<li class="@Html.IsSelected(actions: MVC.Admin.Contact.ActionNames.Trash, controllers: MVC.Admin.Contact.Name, cssClass: "active")">
+    <a href="@Url.Action(MVC.Admin.Contact.Trash())">
+        <span class="label label-danger pull-left" title="خوانده نشده">@Model.Item3</span>
+        <i class="fa fa-trash-o fa-lg"></i> حذف شده ها
+    </a>
+</li>

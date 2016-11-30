@@ -1,0 +1,80 @@
+﻿@model Product
+    
+@{
+    ViewBag.Title = "محصولات";
+}
+
+@section HeadPanel {
+    <script id="entry-template" type="text/x-handlebars-template">
+        {{#each List}}
+        <div class="col-xs-6 col-sm-4 col-md-3">
+            <div class="products">
+                <div class="offer-focus">
+                    {{#if FileUploadUrl}}
+                    <img class="img-responsive" src="/Data/Admin/{{FileUploadUrl}}?w=352&h=274&mode=pad&scale=both" title="{{Title}}" alt="{{Title}}" />
+                    {{else}}
+                    <img class="img-responsive" src="/Content/Admin/Images/no-pic.jpg?w=352&h=274&mode=pad&scale=both" title="{{Title}}" alt="{{Title}}" />
+                    {{/if}}
+                    <div class="offer-filter">
+                        <div class="offer-hover">
+                            <div class="offer-hover2">
+                                <a class="fancybox" href="@Url.Action(MVC.Product.Details())/{{ID}}/{{Title2}}">
+                                    <i class="fa fa-link" title="مشاهده جزئیات"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3>
+                    <a href="@Url.Action(MVC.Product.Details())/{{ID}}/{{Title2}}">
+                        {{Title}}
+                        <span>کد محصول: {{Code}}</span>
+                    </a>
+                </h3>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+    <script type="text/javascript">
+        var selectUrl = '@Url.Action(MVC.Product.Select())';
+    </script>
+}
+
+<div class="select-group">
+    <div class="form-horizontal col-xs-12 col-sm-5 col-md-4">
+        <div class="form-group ddlSelect">
+            @Html.LabelFor(model => Model.CategoryList, new { @class = "control-label col-xs-5 col-sm-4 col-md-4" })
+            <div class="col-xs-7 col-sm-8 col-lg-7">
+                @Html.DropDownListFor(model => Model.CategoryList, ProductCategory.SelectList(1, Convert.ToInt32(Request.QueryString["category"])), "همه", new { @class = "form-control", id = "ddlCategory" })
+            </div>
+        </div>
+    </div>
+    <div class="form-horizontal col-xs-12 col-sm-4 col-md-3">
+        <div class="form-group">
+            <label for="ddlPageSize" class="control-label col-xs-5 col-sm-6 col-lg-5">تعداد نمایش</label>
+            <div class="col-xs-7 col-sm-6">
+                <select class="form-control" id="ddlPageSize">
+                    <option>12</option>
+                    <option>48</option>
+                    <option>120</option>
+                    <option>600</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div id="grdData" class="pos-relative">
+    <div class="tbody"></div>
+    <div class="loadingPart">
+        <div class="loadingHolder">
+            <img src="~/Content/Admin/Images/loading1.gif" width="30" height="30" />
+            <p>لطفا چند لحظه صبر کنید</p>
+        </div>
+    </div>
+    <h4 class="emptyResult"></h4>
+</div>
+<div class="clearfix"></div>
+<div class="col-xs-12 text-center">
+    <ul class="pagination"></ul>
+</div>

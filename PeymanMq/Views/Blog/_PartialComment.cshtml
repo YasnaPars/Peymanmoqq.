@@ -1,0 +1,90 @@
+﻿@model Tuple<List<Comment>, int>
+
+<script type="text/javascript">
+    var insertUrl = '@Url.Action(MVC.Blog.InsertComment())';
+</script>
+
+<div class="comment-box">
+    <h3>نظرات (@Model.Item1.Count)</h3>
+    @if (Model.Item1 != null && Model.Item1.Any())
+    {
+        foreach (var item in Model.Item1)
+        {
+            <div class="media">
+                <a>
+                    <img src="~/Content/Images/avatar.png" alt="آواتار" />
+                </a>
+                <div class="media-body">
+                    <div>
+                        <h4 class="media-heading">
+                            @Html.DisplayFor(model => item.FullName)
+                        </h4>
+                    </div>
+                    <span>@item.Date.ToPersianDate("dddd d MMMM yyyy - HH:mm", false)</span>
+                    <div class="perLine">@Html.DisplayFor(model => item.Body)</div>
+                </div>
+                @if (!string.IsNullOrWhiteSpace(item.Answer))
+                {
+                    <div class="media media2">
+                        <a>
+                            <img src="~/Content/Images/avatar.png" alt="آواتار" />
+                        </a>
+                        <div class="media-body">
+                            <div>
+                                <h4 class="media-heading">مدیر سایت</h4>
+                            </div>
+                            <span>@item.AnswerDate.ToPersianDate("dddd d MMMM yyyy - HH:mm", false)</span>
+                            <div class="preLine">@Html.DisplayFor(model => item.Answer)</div>
+                        </div>
+                    </div>
+                }
+                <div class="clearfix"></div>
+            </div>
+        }
+    }
+    else
+    {
+        <div>اولین نظر را شما ارسال کنید.</div>
+    }
+    <hr />
+    <h3>ارسال یک نظر</h3>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-contact sendComment pos-relative", role = "form" }))
+    {
+        @Html.Hidden("PostID", Model.Item2)
+        <div class="form-group">
+            @Html.LabelFor(model => new CommentInsertVM().FullName)
+            @Html.EditorFor(model => new CommentInsertVM().FullName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => new CommentInsertVM().FullName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => new CommentInsertVM().Email)
+            @Html.EditorFor(model => new CommentInsertVM().Email, new { htmlAttributes = new { @class = "form-control text-left" } })
+            @Html.ValidationMessageFor(model => new CommentInsertVM().Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => new CommentInsertVM().Body)
+            @Html.EditorFor(model => new CommentInsertVM().Body, new { htmlAttributes = new { @class = "form-control", rows = "4" } })
+            @Html.ValidationMessageFor(model => new CommentInsertVM().Body, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(model => new CommentInsertVM().Captcha, new { @class = "col-sm-12" })
+            </div>
+            @Html.EditorFor(model => new CommentInsertVM().Captcha, new { htmlAttributes = new { @class = "form-control float-none col-xs-3 col-sm-4" } })
+            @Html.Partial(MVC.Shared.Views._PartialCaptcha, new Tuple<int, int, int>(4, 130, 22))
+            <div class="form-group">
+                @Html.ValidationMessageFor(model => new CommentInsertVM().Captcha, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-submit btn-lg">ارسال نظر</button>
+        </div>
+        <div class="loadingPart">
+            <div class="loadingHolder">
+                <img src="~/Content/Images/loading1.gif" width="30" height="30" />
+                <p>لطفا چند لحظه صبر کنید</p>
+            </div>
+        </div>
+        <div class="msgAlert"></div>
+    }
+</div>

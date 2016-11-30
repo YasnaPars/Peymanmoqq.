@@ -1,0 +1,144 @@
+﻿@model Product
+
+@{
+    ViewBag.Title = "نمایش جزئیات محصول";
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="page-head">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+    <div class="cl-mcont">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="block-flat">
+                    @if (Model != null)
+                    {
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-7">
+                                @if (Model.FileUploadID != null)
+                                {
+                                    <a href="@string.Format("/Data/Admin/{0}", Model.FileUpload.RealName)" target="_blank">
+                                        <img class="img-thumbnail img-responsive" src="@string.Format("/Data/Admin/{0}?w=400&h=250&mode=max", Model.FileUpload.RealName)" />
+                                    </a>
+                                }
+                                else
+                                {
+                                    <img class="img-thumbnail img-responsive" src="~/Content/Admin/Images/no-pic.jpg?w=280" />
+                                }
+                            </div>
+                            <div class="col-xs-6 col-sm-5">
+                                <div class="btn-group pull-left">
+                                    <a class="btn btn-sm btn-primary" href="@Url.Action(MVC.Admin.Product.Index())">
+                                        <i class="fa fa-arrow-left"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-default" href="@Url.Action(MVC.Admin.Product.Index())">مشاهده لیست</a>
+                                </div>
+                                <div class="btn-group pull-left">
+                                    <a class="btn btn-sm btn-success" href="@Url.Action(MVC.Admin.Product.Update(Model.ID))">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-default" href="@Url.Action(MVC.Admin.Product.Update(Model.ID))">ویرایش</a>
+                                </div>
+                                <div class="btn-group pull-left">
+                                    <a class="btn btn-sm btn-warning" href="@Url.Action(MVC.Admin.CommentProduct.Index(Model.ID))">
+                                        <i class="fa fa-comment"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-default" href="@Url.Action(MVC.Admin.CommentProduct.Index(Model.ID))">نظرات</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="table-responsive">
+                                <table class="table no-border table-responsive">
+                                    <tbody class="no-border-x">
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.ID)</td>
+                                            <td class="col-sm-10">@Model.ID</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.CategoryList)</td>
+                                            <td class="col-sm-10">@ProductJoinProductCategory.SelectString(Model.ID)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Title)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.Title)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Code)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.Code)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Date)</td>
+                                            <td class="col-sm-10">@Model.Date.ToPersianDate("d MMMM yyyy - HH:mm", false)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Color)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.Color)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.CatalogTitle)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.CatalogTitle)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.CatalogUrl)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.CatalogUrl)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.ShortBody)</td>
+                                            <td class="col-sm-10 preLine">@Model.ShortBody</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Rank)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.Rank)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Status)</td>
+                                            <td class="col-sm-10">@Model.Status.DisplayName()</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.UserSiteID)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.UserSite.FullName)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.VisitCount)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.VisitCount)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.MetaKeywords)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.MetaKeywords)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.MetaDescription)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.MetaDescription)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.ExtraContent)</td>
+                                            <td class="col-sm-10">@Html.DisplayFor(model => model.ExtraContent)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2 primary-emphasis vmiddle">@Html.DisplayNameFor(model => model.Body)</td>
+                                            <td class="col-sm-10">@Html.Raw(Model.Body)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="content">
+                            <div class="jumbotron">
+                                <p>رکورد مورد نظر یافت نشد</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

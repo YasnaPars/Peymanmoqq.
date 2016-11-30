@@ -1,0 +1,187 @@
+﻿@model FileUploadInsertVM
+
+@{
+    ViewBag.Title = "مدیریت فایل ها";
+}
+
+@section HeadPanel {
+    <script id="entry-template" type="text/x-handlebars-template">
+        {{#each List}}
+        <tr>
+            <td><input type="checkbox" value="{{ID}}" class="checkall" data-url="{{RealName}}" /></td>
+            <td>{{index}}</td>
+            <td>{{Title}}</td>
+            <td class="text-left"><a href="{{FullUrl}}" class="imgPreview" target="_blank">{{FullUrl}}</a></td>
+            <td>{{Type}}</td>
+            <td>{{Size}}</td>
+            <td>{{CategoryTitle}}</td>
+            <td>{{Date}}</td>
+            <td>{{ID}}</td>
+            <td class="col-xs-2">
+                <p class="spacer-bottom">
+                    <a href="#" class="btn btn-primary btn-xs btnEditRow" data-id="{{ID}}" title="ویرایش">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a href="#" class="btn btn-danger btn-xs btnDeleteRow" data-id="{{ID}}" data-url="{{RealName}}" title="حذف">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                <p class="spacer-bottom">
+                    <a href="#" class="btn btn-xs btnIncreaseRank" title="افزایش @Html.DisplayNameFor(model => new FileUpload().Rank)" data-id="{{ID}}" data-type="plus">
+                        <span class="fa fa-caret-up"></span>
+                    </a>
+                    <span title="@Html.DisplayNameFor(model =>new FileUpload().Rank)">{{Rank}}</span>&nbsp;
+                    <a href="#" class="btn btn-xs btnDecreaseRank" title="کاهش @Html.DisplayNameFor(model => new FileUpload().Rank)" data-id="{{ID}}" data-type="minus">
+                        <span class="fa fa-caret-down"></span>
+                    </a>
+                </p>
+            </td>
+        </tr>
+        <tr class="display-none">
+            <td colspan="10">
+                <img src="/Content/Admin/Images/loading2.gif" />
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+    <script type="text/javascript">
+        var selectUrl = '@Url.Action(MVC.Admin.FileUpload.Select())';
+        var deleteUrl = '@Url.Action(MVC.Admin.FileUpload.Delete())';
+        var deleteConfirmMsg = 'آیا از حذف این فایل مطمئن هستید؟';
+        var deleteAllUrl = '@Url.Action(MVC.Admin.FileUpload.DeleteAll())';
+        var deleteAllConfirmMsg = 'آیا با حذف رکوردها موافق هستید؟';
+        var detailsUrl = '@Url.Action(MVC.Admin.FileUpload.Details())';
+        var contentTD = "<td colspan='10'><img src='/Content/Admin/Images/loading2.gif' /></td>";
+        var updateUrl = '@Url.Action(MVC.Admin.FileUpload.Update())';
+        var updateRankUrl = '@Url.Action(MVC.Admin.FileUpload.UpdateRank())';
+    </script>
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="page-head">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+    <div class="cl-mcont">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="block-flat">
+                    <div class="header">
+                        <h3>آپلود فایل <small>(حداکثر حجم برای آپلود یک فایل 20 مگابایت می باشد)</small></h3>
+                    </div>
+                    <div class="content">
+                        @using (Html.BeginForm(MVC.Admin.FileUpload.Index(), FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    @if (!string.IsNullOrWhiteSpace(ViewBag.Alert))
+                                    {
+                                        @Html.Raw(ViewBag.Alert)
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Title, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="col-sm-6">
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.file, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(model => model.file, new { type = "file", @class = "form-control" })
+                                </div>
+                                <div class="col-sm-6">
+                                    @Html.ValidationMessageFor(model => model.file, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FileUploadCategoryID, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(model => model.FileUploadCategoryID, Model.CategoryList, new { @class = "form-control" })
+                                </div>
+                                <div class="col-sm-6">
+                                    @Html.ValidationMessageFor(model => model.FileUploadCategoryID, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-upload"></i> بارگزاری
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="header">
+                        <div class="row no-margin-y">
+                            <h3 class="col-sm-2">نمایش لیست</h3>
+                            @Html.Partial(MVC.Admin.Shared.Views._PartialPageSize)
+                            <div class="form-horizontal group-border-dashed col-xs-12 col-sm-5 col-md-4 pull-left">
+                                <div class="form-group">
+                                    <div class="col-xs-6 pull-left">
+                                        @Html.DropDownListFor(model => model.FileUploadCategoryID, Model.CategoryList, "همه", new { @class = "form-control ddlSelect", id = "ddlCategory" })
+                                    </div>
+                                    @Html.LabelFor(model => Model.FileUploadCategoryID, new { @class = "col-xs-6 control-label" })
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-6 pull-left">
+                                        @Html.DropDownListFor(model => Model.FileUploadCategoryID, FileUploadType.Select(), "همه", new { @class = "form-control ddlSelect", id = "ddlType" })
+                                    </div>
+                                    @Html.LabelFor(model => new FileUploadType().Title, new { @class = "col-xs-6 control-label" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ul class="pagination"></ul>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-center table-hover" id="grdData">
+                                <thead>
+                                    <tr class="primary-emphasis">
+                                        <th>
+                                            <button class="btn btn-xs btn-danger btnDeleteAll no-margin-x" type="button" title="حذف">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                            <input id="check-all" type="checkbox" name="check-all" />
+                                        </th>
+                                        <th>ردیف</th>
+                                        <th>@Html.DisplayNameFor(model => new FileUpload().Title)</th>
+                                        <th>@Html.DisplayNameFor(model => new FileUpload().RealName)</th>
+                                        <th>@Html.DisplayNameFor(model => new FileUpload().FileUploadType.Title)</th>
+                                        <th>@Html.DisplayNameFor(model => new FileUpload().Size)</th>
+                                        <th>@Html.DisplayNameFor(model => new FileUploadCategory().Title)</th>
+                                        <th>@Html.DisplayNameFor(model => new FileUpload().Date)</th>
+                                        <th>@Html.DisplayNameFor(model => new FileUpload().ID)</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody"></tbody>
+                            </table>
+                            <div class="loadingPart">
+                                <div class="loadingHolder">
+                                    <img src="~/Content/Admin/Images/loading1.gif" width="30" height="30" />
+                                    <p>لطفا چند لحظه صبر کنید</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="emptyResult"></h4>
+                        <div>
+                            <ul class="pagination"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

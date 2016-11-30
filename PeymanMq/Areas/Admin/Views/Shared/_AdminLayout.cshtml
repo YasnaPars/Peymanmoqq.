@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fa">
+<head>
+    <title>@ViewBag.Title - مدیریت @ClsMain.SiteTitle</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-language" content="fa" />
+    <meta name="author" content="www.ariafanavari.ir" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="distribution" content="global" />
+    <meta name="robots" content="noarchive,nofollow,noindex" />
+    <meta name="generator" content="MVC" />
+    <meta name="dcterms.rights" content="www.ariafanavari.ir" />
+    <meta name="dcterms.dateCopyrighted" content="@DateTime.Now.Year" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta http-equiv="reply-to" content="@string.Format("info@{0}", ClsMain.SiteUrl)" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <link href="~/Content/Images/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="~/Content/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    @Scripts.Render("~/Content/Scripts/MainJs")
+    @Styles.Render("~/Content/Admin/Styles/AdminMainCss")
+    <!--[if lt IE 9]>
+        @Scripts.Render("~/Content/Scripts/IE/IeJs")
+        <style type="text/css">
+            { behavior: url(@Links.Content.Scripts.IE.PIE_htc) }
+        </style>
+    <![endif]-->
+    @RenderSection("HeadPanel", false)
+</head>
+<body>
+    @Html.AntiForgeryToken()
+    <div id="head-nav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
+                    <span class="fa fa-cog"></span>
+                </button>
+                <a href="@Url.Action(MVC.Admin.Home.Index())" class="navbar-brand"><span>پنل مدیریت</span></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-left user-nav">
+                    <li class="dropdown profile_menu">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            <img alt="Avatar" src="~/Content/Admin/Images/avatar.png" />سلام، <span>@{ Html.RenderAction(MVC.Admin.Home.SelectUsername(HttpContext.Current.User.Identity.Name)); }</span><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="http://www.@ClsMain.SiteUrl" target="_blank">مشاهده وب سایت</a>
+                            </li>
+                            <li>
+                                @Html.ActionLink("ویرایش پروفایل", MVC.Admin.EditProfile.Index())
+                            </li>
+                            <li class="divider" role="presentation"></li>
+                            <li>
+                                @using (Html.BeginForm(MVC.Admin.Login.Logout()))
+                                {
+                                    <a id="btnLogout"><span class="icon-off"></span> خروج</a>
+                                }
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <blockquote class="pull-right">
+                    <p class="sokhan"></p>
+                </blockquote>
+                @{ Html.RenderAction(MVC.Admin.Home.SelectNotification()); }
+            </div>
+        </div>
+    </div>
+    <div id="cl-wrapper" class="fixed-menu">
+        <div class="cl-sidebar">
+            <div class="cl-toggle">
+                <i class="fa fa-navicon"></i>
+            </div>
+            <div class="cl-navblock">
+                <div class="menu-space">
+                    <div class="content">
+                        <ul class="cl-vnavigation">
+                            <li class="text-center color-danger mark">@DateTime.Now.ToPersianDate("dddd d MMMM yy", false)</li>
+                            <li>
+                                <a href="@Url.Action(MVC.Admin.Home.Index())"><i class="fa fa-home"></i><span>داشبورد</span></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-database"></i><span>فایل های آپلود شده</span></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        @Html.ActionLink("مدیریت دسته ها", MVC.Admin.FileUploadCategory.Index())
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("مدیریت فایل ها", MVC.Admin.FileUpload.Index())
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-shopping-cart"></i><span>محصولات</span></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        @Html.ActionLink("ایجاد دسته", MVC.Admin.ProductCategory.Update().AddRouteValues(new { id = "" }))
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("لیست دسته ها", MVC.Admin.ProductCategory.Index())
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("ایجاد", MVC.Admin.Product.Update().AddRouteValues(new { id = "" }))
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("نمایش لیست", MVC.Admin.Product.Index())
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="@Url.Action(MVC.Admin.Order.Index())"><i class="fa fa-shopping-cart"></i><span>درخواست های سفارش</span></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-bullhorn"></i><span>اخبار</span></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        @Html.ActionLink("ایجاد", MVC.Admin.Blog.Update().AddRouteValues(new { id = "" }))
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("نمایش لیست", MVC.Admin.Blog.Index())
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-photo"></i><span>اسلایدر</span></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        @Html.ActionLink("ایجاد", MVC.Admin.Slider.Update().AddRouteValues(new { id = "" }))
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("نمایش لیست", MVC.Admin.Slider.Index())
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-certificate"></i><span>گواهینامه ها</span></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        @Html.ActionLink("ایجاد", MVC.Admin.Certificate.Update().AddRouteValues(new { id = "" }))
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("نمایش لیست", MVC.Admin.Certificate.Index())
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-comments"></i><span>نظرات</span></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        @Html.ActionLink("اخبار", MVC.Admin.Comment.Index().AddRouteValues(new { id = "" }))
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("محصولات", MVC.Admin.CommentProduct.Index().AddRouteValues(new { id = "" }))
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-file"></i><span>محتوای داینامیک</span></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        @Html.ActionLink("ایجاد منو", MVC.Admin.DynamicMenu.Update())
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("مشاهده منوها", MVC.Admin.DynamicMenu.Index())
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("صفحات داینامیک", MVC.Admin.DynamicPage.Index())
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("بخش های داینامیک", MVC.Admin.DynamicPart.Index())
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-envelope"></i><span>پیام ها</span></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        @Html.ActionLink("صندوق دریافت", MVC.Admin.Contact.Inbox())
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("برچسب خورده ها", MVC.Admin.Contact.Star())
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("حذف شده ها", MVC.Admin.Contact.Trash())
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-tasks"></i><span>پنل های صفحه اول</span></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        @Html.ActionLink("ایجاد", MVC.Admin.Panel.Update().AddRouteValues(new { id = "" }))
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("نمایش لیست", MVC.Admin.Panel.Index())
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="@Url.Action(MVC.Admin.Statistic.Index())"><i class="fa fa-signal"></i><span>آمار بازدید</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="search-field collapse-button">
+                    <button id="sidebar-collapse" class="btn btn-default pull-left">
+                        <i class="fa fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+    @RenderSection("FooterPanel", false)
+    @Scripts.Render("~/Content/Scripts/MainJs2", "~/Content/Admin/Scripts/AdminMainJs")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            App.init();
+        });
+    </script>
+</body>
+</html>

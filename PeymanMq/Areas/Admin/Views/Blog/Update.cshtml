@@ -1,0 +1,219 @@
+﻿@model Blog
+
+@section HeadPanel {
+    <script src="~/Content/Admin/Plugins/CKEditor_4.5.3/ckeditor.js"></script>
+    @Styles.Render("~/Content/Admin/Styles/TagEditor/TagEditorCss")
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="page-head">
+        <div class="row">
+            <div class="col-sm-9">
+                <h2>@ViewBag.Title</h2>
+            </div>
+            <div class="col-sm-3">
+                <div class="btn-group pull-left">
+                    <a class="btn btn-sm btn-primary" href="@Url.Action(MVC.Admin.Blog.Index())">
+                        <i class="fa fa-arrow-left"></i>
+                    </a>
+                    <a class="btn btn-sm btn-default" href="@Url.Action(MVC.Admin.Blog.Index())">مشاهده لیست</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cl-mcont">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                @Html.Partial(MVC.Admin.Shared.Views._PartialSelectImage)
+
+                @using (Html.BeginForm(MVC.Admin.Blog.Update(), FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="tab-container">
+                        <ul class="nav nav-tabs">
+                            <li class="">
+                                <a data-toggle="tab" href="#mainContent" aria-expanded="false">اطلاعات اصلی</a>
+                            </li>
+                            <li class="active">
+                                <a data-toggle="tab" href="#seoContent" aria-expanded="true">سئو</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane cont" id="mainContent">
+                                @if (!string.IsNullOrWhiteSpace(ViewBag.Alert))
+                                {
+                                    <div class="form-group">
+                                        <div class="col-sm-8">
+                                            @Html.Raw(ViewBag.Alert)
+                                        </div>
+                                    </div>
+                                }
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Title, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ShortBody, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.ShortBody, new { htmlAttributes = new { rows = "6", @class = "form-control" } })
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @Html.ValidationMessageFor(model => model.ShortBody, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Url, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control ltr" } })<br />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @Html.ValidationMessageFor(model => model.Url, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FileUploadID, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-3">
+                                        @if (Model.ID != 0)
+                                        {
+                                            <img class="imgFileUpload img-thumbnail spacer-bottom-xs" src="@(Model.FileUploadID == null ? "/Content/Admin/Images/no-pic.jpg?w=175&h=175&mode=pad" : string.Format("/Data/Admin/{0}?w=175&h=175&mode=pad", Model.FileUpload.RealName))" />
+                                        }
+                                        else
+                                        {
+                                            <img class="imgFileUpload img-thumbnail spacer-bottom-xs display-none" />
+                                        }
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(model => model.FileUploadID, new { @class = "form-control", data_toggle = "tooltip", title = "شماره تصویر", data_placement = "top" })
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-success btn-flat btnSelectImage" data-href="@Url.Action(MVC.Admin.FileUpload.SelectImage())">انتخاب تصویر</button>
+                                            </span>
+                                        </div>
+                                        <small class="color-primary">ابعاد مناسب تصویر به پیکسل، عرض 737 و ارتفاع 383</small>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        @Html.ValidationMessageFor(model => model.FileUploadID, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                                @if (Model.ID != 0)
+                                {
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Rank, new { @class = "col-sm-2 control-label" })
+                                        <div class="col-sm-3">
+                                            @Html.TextBoxFor(model => model.Rank, new { @Value = Model.Rank.ToString(), @class = "form-control" })
+                                        </div>
+                                        <div class="col-sm-7">
+                                            @Html.ValidationMessageFor(model => model.Rank, "", new { @class = "color-danger" })
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    @Html.HiddenFor(model => model.Rank, new { @Value = 1 })
+                                }
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Status, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-3">
+                                        @Html.EnumDropDownListFor(model => model.Status, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-sm-7">
+                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.UserSiteID, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-3">
+                                        @Html.DropDownListFor(model => model.UserSiteID, Model.UserSiteCategoryList, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-sm-7">
+                                        @Html.ValidationMessageFor(model => model.UserSiteID, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Source, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.Source, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="col-sm-6">
+                                        @Html.ValidationMessageFor(model => model.Source, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SourceUrl, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.SourceUrl, new { htmlAttributes = new { @class = "form-control ltr" } })<br />
+                                        <small class="color-primary">مثال: http://www.test.com</small>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @Html.ValidationMessageFor(model => model.SourceUrl, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CategoryList, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-10">
+                                        @Html.Partial(MVC.Admin.Shared.Views._PartialCategory, new Tuple<string, IList<SelectListItem>>("CategoryList", BlogCategory.SelectList(Model.CategoryList)))
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Body, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-10">
+                                        @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="col-sm-12">
+                                        @Html.ValidationMessageFor(model => model.Body, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane cont active" id="seoContent">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MetaKeywords, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.MetaKeywords, new { htmlAttributes = new { rows = "6", @class = "form-control tagEditorInput2" } })<br />
+                                        <small class="color-primary">حداکثر 10 کلمه (برای جدا کردن کلمات Enter بزنید یا علامت | (پایپ) بگذارید)</small>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @Html.ValidationMessageFor(model => model.MetaKeywords, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MetaDescription, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.MetaDescription, new { htmlAttributes = new { rows = "6", @class = "form-control" } })<br />
+                                        <small class="color-primary">حداکثر 200 کاراکتر (Enter زده نشود)</small>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @Html.ValidationMessageFor(model => model.MetaDescription, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ExtraContent, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.ExtraContent, new { htmlAttributes = new { rows = "6", @class = "form-control" } })<br />
+                                        <small class="color-primary">حداکثر 500 کاراکتر</small>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @Html.ValidationMessageFor(model => model.ExtraContent, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-floppy-o"></i> ذخیره
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section FooterPanel {
+    @Scripts.Render("~/Content/Admin/Scripts/TagEditor/TagEditorJs")
+}

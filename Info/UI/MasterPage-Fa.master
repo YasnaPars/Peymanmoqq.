@@ -1,0 +1,500 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage-Fa.master.cs" Inherits="MasterPage_Fa" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head runat="server">
+    <title>پیمان موکت | صفحه اصلی</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="content-language" content="fa" />
+    <meta name="author" content="www.ariafanavari.ir" />
+    <meta name="distribution" content="global" />
+    <meta name="robots" content="index, follow" />
+    <meta name="revisit-after" content="1 days" />
+    <meta name="activegenerator" content="MVC" />
+    <meta name="dcterms.rights" content="www.ariafanavari.ir" />
+    <meta name="dcterms.dateCopyrighted" content="2016" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta http-equiv="reply-to" content="info@ariafanavari.ir" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <link href="/Images/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="Styles/reset.css" rel="stylesheet" type="text/css" />
+    <link href="Plugins/Bootstrap-3.0/bootstrap-fa.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/main-fa.css?v=1.1" rel="stylesheet" type="text/css" />
+    <script src="Scripts/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="Scripts/jquery.easing.1.3.js" type="text/javascript"></script>
+    <!--[if lt IE 9]>
+        <script src="Scripts/html5.js" type="text/javascript"></script>
+        <style type="text/css">
+            {behavior:url(Scripts/PIE.htc)}
+        </style>
+    <![endif]-->
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <header>
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <ul class="language-links">
+                            <li>
+                                <a class="Tooltip" href="Default-Fa.aspx" data-placement="bottom" data-toggle="tooltip" data-original-title="Persian" title="">
+                                    <img src="Images/ir.gif" title="" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="Default.aspx" data-placement="bottom" data-toggle="tooltip" data-original-title="English" title="">
+                                    <img src="Images/en.gif" title="" alt="" />
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="social-links">
+                            <li>
+                                <a class="Tooltip" href="https://www.facebook.com/" data-placement="bottom" data-toggle="tooltip" data-original-title="Facebook" title="" target="_blank">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="https://www.instagram.com/" data-placement="bottom" data-toggle="tooltip" data-original-title="Instagram" title="" target="_blank">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="https://www.linkedin.com/" data-placement="bottom" data-toggle="tooltip" data-original-title="Linkedin" title="" target="_blank">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="https://www.telegram.me/" data-placement="bottom" data-toggle="tooltip" data-original-title="Telegram" title="" target="_blank">
+                                    <i class="fa fa-send"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <form class="search-header col-sm-4 col-md-3">
+                        <div class="input-group">
+                            <input class="form-control txtSearch" type="text" placeholder="جستجو..." />
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn" title="جستجو">
+                                    <i class="fa fa-search" title="جستجو"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <nav class="navbar navbar-default" role="navigation">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">منوی اصلی</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="Default-Fa.aspx" title="پیمان موکت">
+                                    <h1>
+                                        <span>Peyman</span>
+                                        <span>Moquette</span>
+                                    </h1>
+                                </a>
+                            </div>
+                            <div class="collapse navbar-collapse" id="main-menu">
+                                <ul class="nav navbar-nav">
+                                    <li class="primary">
+                                        <a class="active" href="Default-Fa.aspx">صفحه اصلی</a>
+                                    </li>
+                                    <li class="sep"></li>
+                                    <li class="primary nekoMegaMenuTrigger">
+                                        <a href="Products-Fa.aspx" class="hasSubMenu">محصولات</a>
+                                        <div class="nekoMegaMenu subMenu">
+                                            <div class="row">
+                                                <div class="hidden-sm col-md-4">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <h2 class="title-design">آخرین محصولات</h2>
+                                                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                                                <ol class="carousel-indicators">
+                                                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                                                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                                                                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                                                                    <li data-target="#myCarousel" data-slide-to="3"></li>
+                                                                </ol>
+                                                                <div class="carousel-inner" role="listbox">
+                                                                    <div class="item active">
+                                                                        <a href="Default-Fa.aspx" title="">
+                                                                            <img class="img-responsive" src="Images/menu-pic1.jpg" width="" height="" title="" alt="" />
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="item">
+                                                                        <a href="Default-Fa.aspx" title="">
+                                                                            <img class="img-responsive" src="Images/menu-pic2.jpg" width="" height="" title="" alt="" />
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="item">
+                                                                        <a href="Default-Fa.aspx" title="">
+                                                                            <img class="img-responsive" src="Images/menu-pic3.jpg" width="" height="" title="" alt="" />
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="item">
+                                                                        <a href="Default-Fa.aspx" title="">
+                                                                            <img class="img-responsive" src="Images/menu-pic4.jpg" width="" height="" title="" alt="" />
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <h2 class="title-design">لیست طرح ها</h2>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 1</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 2</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 3</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 4</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 5</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 6</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 7</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 8</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 9</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 10</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 11</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 12</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 13</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 14</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 15</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 16</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 17</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 18</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 19</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 20</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 21</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 22</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 23</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="Show-Product-Fa.aspx">دسته بندی محصول 24</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <%--<li class="primary">
+                                        <a class="hasSubMenu" href="Default-Fa.aspx">گواهینامه ها</a>
+                                        <ul class="subMenu">
+                                            <li>
+                                                <a href="Default-Fa.aspx">گواهینامه ها 1</a>
+                                            </li>
+                                            <li>
+                                                <a href="Default-Fa.aspx">گواهینامه ها 2</a>
+                                            </li>
+                                            <li>
+                                                <a href="Default-Fa.aspx">گواهینامه ها 3</a>
+                                            </li>
+                                            <li class="dropdownSubmenu">
+                                                <a class="hasSubMenu" href="Default-Fa.aspx">گواهینامه ها 4</a>
+                                                <ul class="subMenu">
+                                                    <li>
+                                                        <a href="Default-Fa.aspx">گواهینامه ها 1</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="Default-Fa.aspx">گواهینامه ها 2</a>
+                                                    </li>
+                                                    <li class="dropdownSubmenu">
+                                                        <a class="hasSubMenu" href="Default-Fa.aspx">گواهینامه ها 3</a>
+                                                        <ul class="subMenu">
+                                                            <li>
+                                                                <a href="Default-Fa.aspx">گواهینامه ها 1</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="Default-Fa.aspx">گواهینامه ها 2</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="Default-Fa.aspx">گواهینامه ها 3</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>--%>
+                                    <li class="sep"></li>
+                                    <li class="primary">
+                                        <a href="Send-Order-Fa.aspx">ارسال سفارش</a>
+                                    </li>
+                                    <li class="sep"></li>
+                                    <li class="primary">
+                                        <a href="About-Us-Fa.aspx">درباره ما</a>
+                                    </li>
+                                    <li class="sep"></li>
+                                    <li id="lastMenu" class="primary">
+                                        <a href="Contact-Us-Fa.aspx">تماس با ما</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+    <section id="content">
+        <div class="container">
+            <div class="row">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-widget">
+                        <a class="footer-logo" href="Default-Fa.aspx" title="پیمان موکت">
+                            <h2>
+                                <span>Peyman</span>
+                                <span>Moquette</span>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </a>
+                        <p>
+                            <a href="Default-Fa.aspx" title="پیمان موکت">شرکت الیاف زاگرس پیمان</a> با مدرن ترین ماشین آلات روز دنیا و تکنولوژی منحصر به فرد در زمینه تولید انواع لایه های بی بافت مفتخر است که در راستای تولید علم و نوآوری و به کارگیری توانمند ترین متخصصین نساجی و ژئوتکستایل (Geo Textile) و نیروی کار ایرانی، گام مؤثری در بهبود این تکنولوژی و صنعت کشور عزیزمان بردارد.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-widget">
+                        <h4>آخرین محصولات</h4>
+                        <ul class="works-list">
+                            <li>
+                                <a class="Tooltip" href="Show-Product-Fa.aspx" data-placement="top" data-toggle="tooltip" data-original-title="عنوان محصول 1" title="">
+                                    <img src="Images/works1.jpg" title="" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="Show-Product-Fa.aspx" data-placement="top" data-toggle="tooltip" data-original-title="عنوان محصول 2" title="">
+                                    <img src="Images/works2.jpg" title="" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="Show-Product-Fa.aspx" data-placement="top" data-toggle="tooltip" data-original-title="عنوان محصول 3" title="">
+                                    <img src="Images/works3.jpg" title="" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="Show-Product-Fa.aspx" data-placement="top" data-toggle="tooltip" data-original-title="عنوان محصول 4" title="">
+                                    <img src="Images/works4.jpg" title="" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="Show-Product-Fa.aspx" data-placement="top" data-toggle="tooltip" data-original-title="عنوان محصول 5" title="">
+                                    <img src="Images/works5.jpg" title="" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="Show-Product-Fa.aspx" data-placement="top" data-toggle="tooltip" data-original-title="عنوان محصول 6" title="">
+                                    <img src="Images/works6.jpg" title="" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="Show-Product-Fa.aspx" data-placement="top" data-toggle="tooltip" data-original-title="عنوان محصول 7" title="">
+                                    <img src="Images/works3.jpg" title="" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="Show-Product-Fa.aspx" data-placement="top" data-toggle="tooltip" data-original-title="عنوان محصول 8" title="">
+                                    <img src="Images/works1.jpg" title="" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="Show-Product-Fa.aspx" data-placement="top" data-toggle="tooltip" data-original-title="عنوان محصول 9" title="">
+                                    <img src="Images/works2.jpg" title="" alt="" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix visible-md"></div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-widget">
+                        <h4>آخرین اخبار</h4>
+                        <ul class="news-list">
+                            <li>
+                                <a href="Show-Blog-Fa.aspx" title="">عنوان خلاصه خبر در اینجا نوشته می شود</a>
+                            </li>
+                            <li>
+                                <a href="Show-Blog-Fa.aspx" title="">عنوان خلاصه خبر در اینجا نوشته می شود</a>
+                            </li>
+                            <li>
+                                <a href="Show-Blog-Fa.aspx" title="">عنوان خلاصه خبر در اینجا نوشته می شود</a>
+                            </li>
+                            <li>
+                                <a href="Show-Blog-Fa.aspx" title="">عنوان خلاصه خبر در اینجا نوشته می شود</a>
+                            </li>
+                            <li>
+                                <a href="Show-Blog-Fa.aspx" title="">عنوان خلاصه خبر در اینجا نوشته می شود</a>
+                            </li>
+                            <li>
+                                <a href="Show-Blog-Fa.aspx" title="">عنوان خلاصه خبر در اینجا نوشته می شود</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-widget">
+                        <h4>تماس با ما</h4>
+                        <ul class="footer-contact">
+                            <li>
+                                <i class="fa fa-map-marker"></i>
+                                <strong>کارخانه:</strong>
+                                ایران - مشهد - جاده فریمان - به سمت مشهد - شهرک صنعتی کاویان - خیابان صنعت 7
+                                <div class="clearfix"></div>
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker"></i>
+                                <strong>دفتر مرکزی:</strong>
+                                ایران - مشهد - میدان فلسطین - خیابان ابوذر 1 - پلاک 69
+                                <div class="clearfix"></div>
+                            </li>
+                            <li>
+                                <i class="fa fa-phone"></i>
+                                <strong>تلفن:</strong>
+                                <span class="preline">(+98) 51-38474157
+                                    (+98) 51-38474158
+                                    (+98) 51-38469771
+                                </span>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li>
+                                <i class="fa fa-fax"></i>
+                                <strong>فکس:</strong>
+                                <span class="preline">(+98) 51-38474156</span>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope"></i>
+                                <strong>ایمیل:</strong>
+                                <a href="mailto:peymanmq@gmail.com" title="">peymanmq@gmail.com</a>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <ul class="quick-menu">
+                            <li>
+                                <a href="Default-Fa.aspx" title="">خانه</a>
+                            </li>
+                            <li>
+                                <a href="Blog-Fa.aspx" title="">اخبار</a>
+                            </li>
+                            <li>
+                                <a href="Privacy-Fa.aspx" title="">حریم شخصی کاربران</a>
+                            </li>
+                            <li>
+                                <a href="Rule-Fa.aspx" title="">قوانین و مقررات</a>
+                            </li>
+                            <li>
+                                <a href="Sitemap-Fa.aspx" title="">نقشه سایت</a>
+                            </li>
+                            <li>
+                                <a href="Contact-Us-Fa.aspx" title="">تماس با ما</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-5 copyright">
+                        Copyright 2016 – <a href="Default-Fa.aspx" title="پیمان موکت">Peyman Moquette ©</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
+
+    <script src="Plugins/Bootstrap-3.0/bootstrap.js" type="text/javascript"></script>
+    <script src="Scripts/modernizr-2.6.1.min.js" type="text/javascript"></script>
+    <script src="Scripts/main-fa.js?v=1.1" type="text/javascript"></script>
+</body>
+</html>

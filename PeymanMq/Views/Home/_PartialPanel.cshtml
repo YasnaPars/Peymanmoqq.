@@ -1,0 +1,16 @@
+﻿@model List<Panel>
+
+@foreach (var item in Model)
+{
+    <div class="col-sm-4">
+        <article class="box-icon">
+            <a href="@item.Url" title="@item.Title" target="_blank">
+                <div class="img-border">
+                    <img class="img-circle img-responsive" src="@(item.FileUploadID != null ? string.Format("/Data/Admin/{0}?w=172&h=172&mode=crop&scale=both", item.FileUpload.RealName) : "/Content/Images/no-pic.jpg?w=172&h=172&mode=crop&scale=both")" alt="@item.Title" />
+                </div>
+                <h3 class="mb25">@item.Title</h3>
+                <p class="preLine">@item.Description</p>
+            </a>
+        </article>
+    </div>
+}

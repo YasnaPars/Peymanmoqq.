@@ -1,0 +1,144 @@
+﻿@model FileUploadCategory
+
+@{
+    ViewBag.Title = "مدیریت دسته های فایل ها";
+}
+
+@section HeadPanel {
+    <script id="entry-template" type="text/x-handlebars-template">
+        {{#each List}}
+        <tr>
+            <td>{{index}}</td>
+            <td>{{Title}}</td>
+            <td>{{Date}}</td>
+            <td class="col-xs-3">
+                <p class="spacer-bottom">
+                    <a href="#" class="btn btn-primary btn-xs btnEditRow" data-id="{{ID}}" title="ویرایش">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a href="#" class="btn btn-danger btn-xs btnDeleteRow" data-id="{{ID}}" title="حذف">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                    <a href="#" class="btn btn-xs btnIncreaseRank" title="افزایش @Html.DisplayNameFor(model => model.Rank)" data-id="{{ID}}" data-type="plus">
+                        <span class="fa fa-caret-up"></span>
+                    </a>
+                    <span title="@Html.DisplayNameFor(model => model.Rank)">{{Rank}}</span>&nbsp;
+                    <a href="#" class="btn btn-xs btnDecreaseRank" title="کاهش @Html.DisplayNameFor(model => model.Rank)" data-id="{{ID}}" data-type="minus">
+                        <span class="fa fa-caret-down"></span>
+                    </a>
+                </p>
+            </td>
+        </tr>
+        <tr class="display-none">
+            <td colspan="4">
+                <img src="/Content/Admin/Images/loading2.gif" />
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+    <script type="text/javascript">
+        var selectUrl = '@Url.Action(MVC.Admin.FileUploadCategory.Select())';
+        var deleteUrl = '@Url.Action(MVC.Admin.FileUploadCategory.Delete())';
+        var deleteConfirmMsg = 'با حذف یک دسته، آیتم های داخل آن به دسته متفرقه منتقل خواهند شد. آیا از حذف این رکورد مطمئن هستید؟';
+        var detailsUrl = '@Url.Action(MVC.Admin.FileUploadCategory.Details())';
+        var contentTD = "<td colspan='4'><img src='/Content/Admin/Images/loading2.gif' /></td>";
+        var updateUrl = '@Url.Action(MVC.Admin.FileUploadCategory.Update())';
+        var updateRankUrl = '@Url.Action(MVC.Admin.FileUploadCategory.UpdateRank())';
+    </script>
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="page-head">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+    <div class="cl-mcont">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="block-flat">
+                    <div class="header">
+                        <h3>ایجاد دسته</h3>
+                    </div>
+                    <div class="content">
+                        @using (Html.BeginForm(MVC.Admin.FileUploadCategory.Index(), FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    @if (!string.IsNullOrWhiteSpace(ViewBag.Alert))
+                                    {
+                                        @Html.Raw(ViewBag.Alert)
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Title, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="col-sm-6">
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Rank, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-2">
+                                    @Html.TextBoxFor(model => model.Rank, new { @Value = (FileUploadCategory.Select() + 1), @class = "form-control" })
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.ValidationMessageFor(model => model.Rank, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-floppy-o"></i> ذخیره
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="header">
+                        <div class="row no-margin-y">
+                            <h3 class="col-sm-9">نمایش لیست</h3>
+                            @Html.Partial(MVC.Admin.Shared.Views._PartialPageSize)
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ul class="pagination"></ul>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-center table-hover" id="grdData">
+                                <thead>
+                                    <tr class="primary-emphasis">
+                                        <th>ردیف</th>
+                                        <th>@Html.DisplayNameFor(model => model.Title)</th>
+                                        <th>@Html.DisplayNameFor(model => model.Date)</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody"></tbody>
+                            </table>
+                            <div class="loadingPart">
+                                <div class="loadingHolder">
+                                    <img src="~/Content/Admin/Images/loading1.gif" width="30" height="30" />
+                                    <p>لطفا چند لحظه صبر کنید</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="emptyResult"></h4>
+                        <div>
+                            <ul class="pagination"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

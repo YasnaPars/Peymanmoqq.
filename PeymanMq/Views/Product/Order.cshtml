@@ -1,0 +1,122 @@
+﻿@model OrderInsertVM
+
+@section HeadPanel {
+    <script type="text/javascript">
+        var subItemUrl = '@Url.Action(MVC.Product.SelectProduct())';
+    </script>
+}
+
+<div class="col-sm-6">
+    @using (Html.BeginForm(MVC.Product.Order(), FormMethod.Post, new { @class = "form-contact", role = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.HiddenSubItemID)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        if (!string.IsNullOrWhiteSpace(ViewBag.Alert))
+        {
+            @Html.Raw(ViewBag.Alert)
+        }
+
+        @Html.ValidationMessageFor(model => model.PostedFile, "", new { @class = "text-danger center-block" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullName)
+            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email)
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control ltr text-left" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.MobileNumber)
+                @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control ltr text-left" } })
+                @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.Phone)
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control ltr text-left" } })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.ProductCategoryID)
+                @Html.DropDownListFor(model => model.ProductCategoryID, Model.ProductCategoryList, "لطفا یک دسته را انتخاب نمایید", new { @class = "form-control", id = "ddlCategoryWithSubItem" })
+                @Html.ValidationMessageFor(model => model.ProductCategoryID, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.ProductID)
+                <img src="~/Content/Images/loading2.gif" class="display-none" />
+                @Html.DropDownListFor(model => model.ProductID, Enumerable.Empty<SelectListItem>(), "لطفا یک گزینه را انتخاب نمایید", new { @class = "form-control", id = "ddlSubItem" })
+                @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.Value)
+                @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-sm-6">
+                <label class="hidden-xs">&nbsp;</label>
+                <span class="description-Text">مثال: 100 متر</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.Color)
+                @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.OrderDate)
+                @Html.EditorFor(model => model.OrderDate)
+                @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description)
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", rows = "4" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostedFile)
+            @Html.TextBoxFor(model => model.PostedFile, new { type = "file", @class = "form-control" })
+            <p class="accept-format">(سایز فایل کوچکتر از 1MB باشد - فرمت فایل های قابل قبول doc, docx, pdf)</p>
+            @Html.ValidationMessageFor(model => model.PostedFile, "", new { @class = "text-danger" })
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.Captcha)
+                @Html.EditorFor(model => model.Captcha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Captcha, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-sm-6">
+                <label class="hidden-xs">&nbsp;</label>
+                @Html.Partial(MVC.Shared.Views._PartialCaptcha, new Tuple<int, int, int>(3, 130, 22))
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-submit btn-lg">ارسال</button>
+        </div>
+    }
+</div>
+<div class="visible-xs col-xs-12">
+    <hr />
+</div>
+<div class="clearfix visible-xs"></div>
+<div class="col-sm-6">
+    <h2 class="title-design mb25">راهنمای سفارش</h2>
+    <ul class="help-box mb25">
+        <li class="fa fa-chevron-left">لطفا اطلاعات خود را بصورت دقیق وارد نمایید.</li>
+        <li class="fa fa-chevron-left">اطلاعات خصوصی شما نزد سایت محفوظ است و در اختیار اشخاص حقیقی یا حقوقی قرار نخواهد گرفت.</li>
+    </ul>
+</div>
+
+@section FooterPanel {
+    @Styles.Render("~/Content/Plugins/PersianDatePicker/PersianDatePicker.css")
+    @Scripts.Render("~/Content/Plugins/PersianDatePicker/PersianDatePicker.js")
+}

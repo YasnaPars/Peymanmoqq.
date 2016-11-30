@@ -1,0 +1,48 @@
+﻿<script id="entry-template" type="text/x-handlebars-template">
+    {{#each List}}
+    <div class="col-xs-6 col-sm-4 col-md-3">
+        <a class="thumbnail">
+            <p>{{ID}}) {{Title}}</p>
+            <img src="/Data/Admin/{{RealName}}?w=175&h=175&mode=crop&scale=both" data-id="{{ID}}" title="{{ID}}" class="img-responsive img-thumbnail" />
+            <p class="text-left ltr">{{Size}} (KB) - {{Type}}</p>
+        </a>
+    </div>
+    {{/each}}
+</script>
+
+<div class="modal fade" id="modalSelectImage" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">انتخاب تصویر <small>(برای انتخاب روی تصویر دوبار کلیک نمایید)</small></h4>
+            </div>
+            <div class="modal-body" id="grdData">
+                <div class="row no-margin-y">
+                    @Html.Partial(MVC.Admin.Shared.Views._PartialPageSize)
+                    <div class="form-horizontal group-border-dashed col-xs-12 col-sm-5 col-md-4 pull-left">
+                        <div class="form-group">
+                            <div class="col-xs-6 pull-left">
+                                @Html.DropDownListFor(model => new FileUpload().FileUploadCategoryID, FileUploadCategory.SelectList(null), "همه", new { @class = "form-control ddlSelect", id = "ddlCategory" })
+                            </div>
+                            @Html.LabelFor(model => new FileUpload().FileUploadCategoryID, new { @class = "col-xs-6 control-label" })
+                        </div>
+                    </div>
+                </div>
+                <ul class="pagination"></ul>
+                <div class="row tbody"></div>
+                <div class="loadingPart">
+                    <div class="loadingHolder">
+                        <img src="~/Content/Admin/Images/loading1.gif" width="30" height="30" />
+                        <p>لطفا چند لحظه صبر کنید</p>
+                    </div>
+                </div>
+                <h4 class="emptyResult"></h4>
+                <ul class="pagination"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>

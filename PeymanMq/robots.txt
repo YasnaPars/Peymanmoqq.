@@ -1,0 +1,3 @@
+user-agent: *
+disallow: /search
+sitemap: http://www.peymanmq.com/sitemap.xml

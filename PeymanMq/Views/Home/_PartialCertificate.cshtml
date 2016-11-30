@@ -1,0 +1,21 @@
+﻿@model List<Certificate>
+
+<div id="owl-demo" class="owl-carousel col-xs-12">
+    @foreach (var item in Model)
+    {
+        <div class="item">
+            <div class="offer-focus">
+                <img src="@(item.FileUploadID != null ? string.Format("/Data/Admin/{0}?w=444&h=296&mode=pad&scale=both", item.FileUpload.RealName) : "/Content/Images/no-pic.jpg?w=444&h=296&mode=pad&scale=both")" alt="@item.Alt" />
+                <div class="offer-filter">
+                    <div class="offer-hover">
+                        <div class="offer-hover2">
+                            <a class="fancybox" href="@(item.FileUploadID != null ? string.Format("/Data/Admin/{0}", item.FileUpload.RealName) : "/Content/Images/no-pic.jpg")" data-fancybox-group="gallery" title="@item.Title">
+                                <i class="fa fa-search" title="@item.Title"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

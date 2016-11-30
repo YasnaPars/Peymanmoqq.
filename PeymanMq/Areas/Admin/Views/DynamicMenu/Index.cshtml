@@ -1,0 +1,55 @@
+﻿@model IList<DynamicMenu>
+
+@{
+    ViewBag.Title = "لیست منوها";
+}
+
+@section HeadPanel {
+    <script type="text/javascript">
+        var deleteUrl = '@Url.Action(MVC.Admin.DynamicMenu.Delete())';
+        var deleteConfirmMsg = 'آیا با حذف این رکورد موافق هستید؟';
+    </script>
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="page-head">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+    <div class="cl-mcont">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="block-flat">
+                    <div class="content">
+                        <h4>برای حذف یک رکورد، تنها رکوردهایی که آخرین فرزند در یک دسته هستند را می توانید حذف کنید</h4>
+                        @(Html.TreeView(Model)
+                            .EmptyContent("رکوردی یافت نشد")
+                            .Children(x => x.Children)
+                            .HtmlAttributes(new { id = "tree" })
+                            .ChildrenHtmlAttributes(new { @class = "subItem" })
+                            .ItemText(x => x.Title)
+                            .ItemTemplate(
+                                @<text>
+                                    <a href="@Url.Action(MVC.Admin.DynamicMenu.Update().AddRouteValues(new { id = item.ID }))">
+                                        @item.Title
+                                    </a>
+                                    [
+                                    <span title="@Html.DisplayNameFor(model => new DynamicMenu().Status)">(@item.Status.DisplayName())</span>
+                                    /
+                                    <span title="@Html.DisplayNameFor(model => new DynamicMenu().Date)">(@item.Date.ToPersianDate("d MMMM yyyy - HH:mm", false))</span>
+                                    ]
+                                    <a href="#" class="btn btn-default btn-xs btnDeleteRow" data-id="@item.ID" title="حذف">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </text>
+                            )
+                        )
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+﻿@model LoginAdminVM
+
+@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fa">
+<head>
+    <title>ورود به پنل مدیریت @ClsMain.SiteTitle</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta charset="utf-8" />
+    <meta http-equiv="content-language" content="fa" />
+    <meta name="author" content="www.ariafanavari.ir" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="distribution" content="global" />
+    <meta name="robots" content="noarchive,nofollow,noindex" />
+    <meta name="generator" content="MVC" />
+    <meta name="dcterms.rights" content="www.ariafanavari.ir" />
+    <meta name="dcterms.dateCopyrighted" content="@DateTime.Now.Year" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta http-equiv="reply-to" content="@string.Format("info@{0}", ClsMain.SiteUrl)" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <link href="~/Content/Images/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="~/Content/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    @Scripts.Render("~/Content/Scripts/MainJs")
+    @Styles.Render("~/Content/Admin/Styles/AdminMainCss")
+    <!--[if lt IE 9]>
+        @Scripts.Render("~/Content/Scripts/IE/IeJs")
+        <style type="text/css">
+            { behavior: url(@Links.Content.Scripts.IE.PIE_htc) }
+        </style>
+    <![endif]-->
+</head>
+<body class="texture">
+    <div id="cl-wrapper" class="login-container">
+        <div class="middle-login">
+            <div class="block-flat">
+                <div class="header">
+                    <h3 class="text-center">پنل مدیریت @ClsMain.SiteTitle</h3>
+                </div>
+                <div>
+                    @using (Html.BeginForm(MVC.Admin.Login.Index().AddRouteValues(new { ReturnUrl = Model.ReturnUrl }), FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="content">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    @if (!string.IsNullOrWhiteSpace(ViewBag.Alert))
+                                    {
+                                        @Html.Raw(ViewBag.Alert)
+                                    }
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", placeholder = "Username" } })
+                                    </div>
+                                    <p class="color-danger">@Html.ValidationMessageFor(model => model.Username, string.Empty)</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+                                    </div>
+                                    <p class="color-danger">@Html.ValidationMessageFor(model => model.Password, string.Empty)</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <div class="checkbox">
+                                        <label class="no-padding">
+                                            @Html.EditorFor(model => model.RememberStatus, new { htmlAttributes = new { @class = "icheck" } })
+                                            @Html.DisplayNameFor(model => model.RememberStatus)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="spacer1 text-left"><a href="@Url.Action(MVC.Account.ForgetPassword())">رمز عبور را فراموش کرده اید؟</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="foot">
+                            <button type="submit" class="btn btn-primary">وارد شوید</button>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="text-center out-links row ltr">
+                <a href="http://www.@ClsMain.SiteUrl" class="col-sm-6" target="_blank">Copyright © @DateTime.Now.Year @ClsMain.SiteUrl</a>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/Content/Scripts/MainJs2", "~/Content/Admin/Scripts/AdminMainJs")
+</body>
+</html>

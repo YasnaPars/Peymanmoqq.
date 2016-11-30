@@ -1,0 +1,108 @@
+﻿@model Order
+
+@{
+    ViewBag.Title = "لیست درخواست های سفارش";
+}
+
+@section HeadPanel {
+    <script id="entry-template" type="text/x-handlebars-template">
+        {{#each List}}
+        <tr>
+            <td><input type="checkbox" value="{{ID}}" class="checkall" data-url="{{FileName}}" /></td>
+            <td>{{index}}</td>
+            <td>{{FullName}}</td>
+            <td>{{MobileNumber}}</td>
+            <td>{{Phone}}</td>
+            <td>{{Date}}</td>
+            <td>{{ID}}</td>
+            <td class="col-xs-2">
+                <p class="spacer-bottom">
+                    <a href="#" class="btn btn-danger btn-xs btnDeleteRow" data-id="{{ID}}" title="حذف" data-url="{{FileName}}">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                    <a href="@Url.Action(MVC.Admin.Order.Details())/{{ID}}" class="btn btn-default btn-xs" title="نمایش جزئیات">
+                        <i class="fa fa-search-plus"></i>
+                    </a>
+                    <a href="#" class="btnStar" data-id="{{ID}}" title="وضعیت درخواست">
+                        {{#if RequestStatus}}
+                        <i class="fa fa-star-o"></i>
+                        {{else}}
+                        <i class="fa fa-star active"></i>
+                        {{/if}}
+                    </a>
+                </p>
+                <p class="spacer-bottom">
+                    <a href="#" class="btn btn-xs btnIncreaseRank" title="افزایش @Html.DisplayNameFor(model => model.Rank)" data-id="{{ID}}" data-type="plus">
+                        <span class="fa fa-caret-up"></span>
+                    </a>
+                    <span title="@Html.DisplayNameFor(model => model.Rank)">{{Rank}}</span>&nbsp;
+                    <a href="#" class="btn btn-xs btnDecreaseRank" title="کاهش @Html.DisplayNameFor(model => model.Rank)" data-id="{{ID}}" data-type="minus">
+                        <span class="fa fa-caret-down"></span>
+                    </a>
+                </p>
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+    <script type="text/javascript">
+        var selectUrl = '@Url.Action(MVC.Admin.Order.Select())';
+        var deleteUrl = '@Url.Action(MVC.Admin.Order.Delete())';
+        var deleteConfirmMsg = 'آیا با حذف این رکورد موافق هستید؟';
+        var deleteAllUrl = '@Url.Action(MVC.Admin.Order.DeleteAll())';
+        var deleteAllConfirmMsg = 'آیا با حذف رکوردها موافق هستید؟';
+        var updateRankUrl = '@Url.Action(MVC.Admin.Order.UpdateRank())';
+        var updateStarUrl = '@Url.Action(MVC.Admin.Order.UpdateStar())';
+    </script>
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="page-head">
+        <div class="row">
+            <div class="col-sm-9">
+                <h2>@ViewBag.Title</h2>
+            </div>
+            @Html.Partial(MVC.Admin.Shared.Views._PartialPageSize)
+        </div>
+    </div>
+    <div class="cl-mcont">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="block-flat">
+                    <div class="content">
+                        <ul class="pagination"></ul>
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-center table-hover" id="grdData">
+                                <thead>
+                                    <tr class="primary-emphasis">
+                                        <th>
+                                            <button class="btn btn-xs btn-danger btnDeleteAll no-margin-x" type="button" title="حذف">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                            <input id="check-all" type="checkbox" name="checkall" />
+                                        </th>
+                                        <th>ردیف</th>
+                                        <th>@Html.DisplayNameFor(model => model.FullName)</th>
+                                        <th>@Html.DisplayNameFor(model => model.MobileNumber)</th>
+                                        <th>@Html.DisplayNameFor(model => model.Phone)</th>
+                                        <th>@Html.DisplayNameFor(model => model.Date)</th>
+                                        <th>@Html.DisplayNameFor(model => model.ID)</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody"></tbody>
+                            </table>
+                            <div class="loadingPart">
+                                <div class="loadingHolder">
+                                    <img src="~/Content/Admin/Images/loading1.gif" width="30" height="30" />
+                                    <p>لطفا چند لحظه صبر کنید</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="emptyResult"></h4>
+                        <ul class="pagination"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿@section HeadPanel {
+    <script id="entry-template" type="text/x-handlebars-template">
+        {{#each List}}
+        <div class="col-xs-6 col-sm-4 col-md-3">
+            <div class="products">
+                <div class="offer-focus">
+                    {{#if FileUploadUrl}}
+                    <img class="img-responsive" src="/Data/Admin/{{FileUploadUrl}}?w=352&h=274&mode=pad&scale=both" title="{{Title}}" alt="{{Title}}" />
+                    {{else}}
+                    <img class="img-responsive" src="/Content/Admin/Images/no-pic.jpg?w=352&h=274&mode=pad&scale=both" title="{{Title}}" alt="{{Title}}" />
+                    {{/if}}
+                    <div class="offer-filter">
+                        <div class="offer-hover">
+                            <div class="offer-hover2">
+                                <a class="fancybox" href="@Url.Action(MVC.Product.Index())?category={{ID}}">
+                                    <i class="fa fa-link" title="مشاهده محصولات"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3>
+                    <a href="@Url.Action(MVC.Product.Index())?category={{ID}}">
+                        {{Title}}
+                    </a>
+                </h3>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+    <script type="text/javascript">
+        var selectUrl = '@Url.Action(MVC.ProductCategory.Select())';
+    </script>
+}
+
+<div id="grdData" class="pos-relative">
+    <div class="tbody"></div>
+    <div class="loadingPart">
+        <div class="loadingHolder">
+            <img src="~/Content/Admin/Images/loading1.gif" width="30" height="30" />
+            <p>لطفا چند لحظه صبر کنید</p>
+        </div>
+    </div>
+    <h4 class="emptyResult"></h4>
+</div>
+<div class="clearfix"></div>
+<div class="col-xs-12 text-center">
+    <ul class="pagination"></ul>
+</div>

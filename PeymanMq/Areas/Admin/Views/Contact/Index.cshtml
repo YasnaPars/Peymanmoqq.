@@ -1,0 +1,73 @@
+﻿@model Tuple<List<Contact>, int>
+
+@{
+    Layout = "~/Areas/Admin/Views/Contact/_ContactLayout.cshtml";
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="mail-inbox">
+        <div class="head">
+            <h3>@ViewBag.Title<span>(تعداد @Model.Item2)</span></h3>
+        </div>
+        <div class="filters">
+            <input id="check-all" type="checkbox" name="checkall" /><span>انتخاب همه &nbsp;</span>
+            @if (ViewContext.RouteData.Values["Action"].ToString() == MVC.Admin.Contact.ActionNames.Trash.ToLower())
+            {
+                <button class="btn btn-xs btn-primary btnMoveInbox pull-left" type="button">
+                    <i class="fa fa-inbox"></i> انتقال به صندوق دریافت
+                </button>
+            }
+            <button class="btn btn-xs btn-danger btnDeleteAll pull-left" type="button">
+                <i class="fa fa-remove"></i> حذف
+            </button>
+            <div class="clearfix"></div>
+        </div>
+        <div class="mails">
+            <div class="loadingPart">
+                <div class="loadingHolder">
+                    <img src="~/Content/Admin/Images/loading1.gif" width="30" height="30" />
+                    <p>لطفا چند لحظه صبر کنید</p>
+                </div>
+            </div>
+            @foreach (var item in Model.Item1)
+            {
+                <div class="item@(item.ReadStatus == Status.DeActive ? " read" : string.Empty)">
+                    <div>
+                        <input type="checkbox" value="@item.ID" class="checkall" /><br />
+                        @if (item.DeleteStatus == Status.DeActive)
+                        {
+                            <a href="#" class="btnStar" data-id="@item.ID" title="برچسب">
+                                <i class="fa @(item.StarStatus == Status.Active ? " fa-star active" : " fa-star-o")"></i>
+                            </a>
+                        }
+                    </div>
+                    <div class="bodyContent" data-id="@item.ID">
+                        <span class="date pull-left" title="@Html.DisplayNameFor(d => item.Date)">
+                            @item.Date.ToPersianDate("d MMMM yy - HH:mm", false) <i class="fa fa-calendar"></i>
+                        </span>
+                        <h4 class="from pull-right" title="@Html.DisplayNameFor(d => item.FullName)">
+                            @Html.DisplayFor(d => item.FullName)
+                        </h4>
+                        <div class="clearfix"></div>
+                        <span class="date pull-left" title="@Html.DisplayNameFor(d => item.Email)">
+                            @Html.DisplayFor(d => item.Email) <i class="fa fa-envelope"></i>
+                        </span>
+                        <h3 class="from pull-right" title="@Html.DisplayNameFor(d => item.Subject)">
+                            @Html.DisplayFor(d => item.Subject)
+                        </h3>
+                        <div class="clearfix"></div>
+                        <span class="date pull-left" title="@Html.DisplayNameFor(d => item.Phone)">
+                            @Html.DisplayFor(d => item.Phone) <i class="fa fa-phone"></i>
+                        </span>
+                        <p class="msg pull-right preLine" title="@Html.DisplayNameFor(d => item.Body)">
+                            @Html.DisplayFor(d => item.Body)
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="message display-none">
+        <img src="~/Content/Admin/Images/loading3.gif" width="45" />
+    </div>
+</div>

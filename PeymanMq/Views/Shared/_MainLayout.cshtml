@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@ViewBag.Title | @ClsMain.SiteTitle</title>
+    <meta name="keywords" content="@ViewBag.MetaKeywords" />
+    <meta name="description" content="@ViewBag.MetaDescription" />
+    <meta charset="utf-8" />
+    <meta name="author" content="www.ariafanavari.ir" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="distribution" content="global" />
+    <meta name="robots" content="index, follow" />
+    <meta name="revisit-after" content="1 days" />
+    <meta name="generator" content="MVC" />
+    <meta name="dcterms.rights" content="www.ariafanavari.ir" />
+    <meta name="dcterms.dateCopyrighted" content="@DateTime.Now.Year" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta http-equiv="reply-to" content="@string.Format("info@{0}", ClsMain.SiteUrl)" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <link href="~/Content/Images/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="~/Content/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    @Styles.Render("~/Content/Styles/MainCss")
+    @Scripts.Render("~/Content/Scripts/MainJs")
+    <script type="text/javascript">
+        var searchUrl = '@Url.Action(MVC.Search.Index())';
+    </script>
+    <!--[if lt IE 9]>
+        @Scripts.Render("~/Content/Scripts/IE/IeJs")
+        <style type="text/css">
+            { behavior: url(@Links.Content.Scripts.IE.PIE_htc) }
+        </style>
+    <![endif]-->
+    @RenderSection("HeadPanel", false)
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-84682974-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+<body>
+    @Html.AntiForgeryToken()
+    <header>
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <ul class="language-links">
+                            <li>
+                                <a class="Tooltip" href="/" data-placement="bottom" data-toggle="tooltip" data-original-title="Persian" title="Persian">
+                                    <img src="~/Content/Images/ir.gif" title="Persian" alt="Persian - فارسی - Farsi" />
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="/" data-placement="bottom" data-toggle="tooltip" data-original-title="English" title="English">
+                                    <img src="~/Content/Images/en.gif" title="English" alt="English - انگلیسی" />
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="social-links">
+                            <li>
+                                <a class="Tooltip" href="@(((MainLayoutVM)ViewBag.MainLayoutVM).FacebookLink)" data-placement="bottom" data-toggle="tooltip" data-original-title="Facebook" target="_blank">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="@(((MainLayoutVM)ViewBag.MainLayoutVM).InstagramLink)" data-placement="bottom" data-toggle="tooltip" data-original-title="Instagram" target="_blank">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="@(((MainLayoutVM)ViewBag.MainLayoutVM).LinkedinLink)" data-placement="bottom" data-toggle="tooltip" data-original-title="Linkedin" target="_blank">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="Tooltip" href="@(((MainLayoutVM)ViewBag.MainLayoutVM).TelegramLink)" data-placement="bottom" data-toggle="tooltip" data-original-title="Telegram" target="_blank">
+                                    <i class="fa fa-send"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <form class="search-header col-sm-4 col-md-3">
+                        <div class="input-group">
+                            <input class="form-control txtSearch" type="text" placeholder="جستجو..." />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btnSearch" title="جستجو">
+                                    <i class="fa fa-search" title="جستجو"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <nav class="navbar navbar-default" role="navigation">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">منوی اصلی</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="/" title="پیمان موکت">
+                                    <h1>
+                                        <span>Peyman</span>
+                                        <span>Moquette</span>
+                                    </h1>
+                                </a>
+                            </div>
+                            <div class="collapse navbar-collapse" id="main-menu">
+                                <ul class="nav navbar-nav">
+                                    @*@DHH.ShowMenu(DynamicMenu.Select(1))*@
+                                    <li class="primary">
+                                        <a class="active" href="/">صفحه اصلی</a>
+                                    </li>
+                                    <li class="sep"></li>
+                                    <li class="primary">
+                                        <a href="@Url.Action(MVC.Blog.Index())">اخبار</a>
+                                    </li>
+                                    <li class="sep"></li>
+                                    <li class="primary nekoMegaMenuTrigger">
+                                        <a href="@Url.Action(MVC.ProductCategory.Index())" class="hasSubMenu">محصولات</a>
+                                        <div class="nekoMegaMenu subMenu">
+                                            <div class="row">
+                                                <div class="hidden-sm col-md-4">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <h2 class="title-design">آخرین محصولات</h2>
+                                                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                                                <ol class="carousel-indicators">
+                                                                    @for (int k = 0; k < ((MainLayoutVM)ViewBag.MainLayoutVM).LastProducts.Count; k++)
+                                                                    {
+                                                                        <li data-target="#myCarousel" data-slide-to="@k" class="@(k == 0 ? "active" : "")"></li>
+                                                                    }
+                                                                </ol>
+                                                                <div class="carousel-inner" role="listbox">
+                                                                @foreach (var item in ((MainLayoutVM)ViewBag.MainLayoutVM).LastProducts)
+                                                                {
+                                                                    <div class="item@(((MainLayoutVM)ViewBag.MainLayoutVM).LastProducts.First() == item ? " active" : "")">
+                                                                        <a href="@(Url.Action(MVC.Product.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() })))" title="@item.Title">
+                                                                            <img class="img-responsive" src="@(item.FileUploadUrl == null ? "/Content/Images/no-pic.jpg?w=345&h=270&mode=crop&scale=both" : string.Format("/Data/Admin/{0}?w=345&h=270&mode=crop&scale=both", item.FileUploadUrl))" alt="@item.Title" />
+                                                                        </a>
+                                                                    </div>
+                                                                }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <h2 class="title-design">لیست محصولات</h2>
+                                                        </div>
+                                                        @{ 
+                                                            int i = 0, j = 0;
+                                                        
+                                                            foreach (var item in ProductCategory.SelectList(1))
+                                                            {
+                                                                if (i++ % 8 == 0)
+                                                                {
+                                                                    @Html.Raw("<div class='col-sm-4'><ul>")
+                                                                }
+
+                                                                @Html.Raw("<li>")
+                                                                    <a href="@(Url.Action(MVC.Product.Index().AddRouteValues(new { category = item.Value })))">@item.Text</a>
+                                                                @Html.Raw("</li>")
+
+                                                                if (++j % 8 == 0)
+                                                                {
+                                                                    @Html.Raw("</ul></div>")
+                                                                }
+                                                            }
+                                                        }
+                                                        @*<div class="col-sm-4">
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="#">دسته بندی محصول 1</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">دسته بندی محصول 2</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    @*<li class="primary">
+                                        <a class="hasSubMenu" href="#">گواهینامه ها</a>
+                                        <ul class="subMenu">
+                                            <li>
+                                                <a href="#">گواهینامه ها 1</a>
+                                            </li>
+                                            <li class="dropdownSubmenu">
+                                                <a class="hasSubMenu" href="#">گواهینامه ها 2</a>
+                                                <ul class="subMenu">
+                                                    <li>
+                                                        <a href="#">گواهینامه ها 1</a>
+                                                    </li>
+                                                    <li class="dropdownSubmenu">
+                                                        <a class="hasSubMenu" href="#">گواهینامه ها 3</a>
+                                                        <ul class="subMenu">
+                                                            <li>
+                                                                <a href="#">گواهینامه ها 1</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>*@
+                                    <li class="sep"></li>
+                                    <li class="primary">
+                                        <a href="@Url.Action(MVC.Certificate.Index())">گواهینامه ها</a>
+                                    </li>
+                                    <li class="sep"></li>
+                                    <li class="primary">
+                                        <a href="@Url.Action(MVC.Product.Order())">ارسال سفارش</a>
+                                    </li>
+                                    <li class="sep"></li>
+                                    <li class="primary">
+                                        <a href="@Url.Action(MVC.DynamicPage.Index().AddRouteValues(new { pageName = "about-us" }))">درباره ما</a>
+                                    </li>
+                                    <li class="sep"></li>
+                                    <li class="primary lastMenu">
+                                        <a href="@Url.Action(MVC.ContactUs.Index())">تماس با ما</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    @if (IsSectionDefined("SliderPanel"))
+    {
+        @RenderSection("SliderPanel", false)
+    }
+    else
+    {
+        <header class="page-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-5 col-sm-6">
+                        <h1>@ViewBag.Title</h1>
+                    </div>
+                    @*<div class="col-xs-7 col-sm-6">
+                        <div class="breadcrumbs">
+                            <a href="Default-Fa.aspx" title="">خانه</a>
+                            <i>/</i>
+                            <span>حریم شخصی کاربران</span>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </header>
+    }
+    <section id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 hideTag">
+                    @ViewBag.ExtraContent
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                @RenderBody()
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-widget">
+                        <a class="footer-logo" href="/" title="پیمان موکت">
+                            <h2>
+                                <span>Peyman</span>
+                                <span>Moquette</span>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </a>
+                        <p>
+                            <a href="/" title="پیمان موکت">شرکت الیاف زاگرس پیمان</a> با مدرن ترین ماشین آلات روز دنیا و تکنولوژی منحصر به فرد در زمینه تولید انواع لایه های بی بافت مفتخر است که در راستای تولید علم و نوآوری و به کارگیری توانمند ترین متخصصین نساجی و ژئوتکستایل (Geo Textile) و نیروی کار ایرانی، گام مؤثری در بهبود این تکنولوژی و صنعت کشور عزیزمان بردارد.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-widget">
+                        <h4>آخرین محصولات</h4>
+                        <ul class="works-list">
+                            @foreach (var item in ((MainLayoutVM)ViewBag.MainLayoutVM).LastProducts)
+                            {
+                                <li>
+                                    <a class="Tooltip" href="@(Url.Action(MVC.Product.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() })))" data-placement="top" data-toggle="tooltip" data-original-title="@item.Title">
+                                        <img class="img-responsive" src="@(item.FileUploadUrl == null ? "/Content/Images/no-pic.jpg?w=60&h=60&mode=crop&scale=both" : string.Format("/Data/Admin/{0}?w=60&h=60&mode=crop&scale=both", item.FileUploadUrl))" alt="@item.Title" />
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix visible-md"></div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-widget">
+                        <h4>آخرین اخبار</h4>
+                        <ul class="news-list">
+                            @foreach (var item in ((MainLayoutVM)ViewBag.MainLayoutVM).LastBlogs)
+                            {
+                                <li>
+                                    <a href="@(item.Url != null ? item.Url : Url.Action(MVC.Blog.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() })))">
+                                        @item.Title
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-widget">
+                        <h4>تماس با ما</h4>
+                        <ul class="footer-contact">
+                            <li>
+                                <i class="fa fa-map-marker"></i>
+                                <strong>کارخانه:</strong>
+                                @(((MainLayoutVM)ViewBag.MainLayoutVM).Factory)
+                                <div class="clearfix"></div>
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker"></i>
+                                <strong>دفتر مرکزی:</strong>
+                                @(((MainLayoutVM)ViewBag.MainLayoutVM).Address)
+                                <div class="clearfix"></div>
+                            </li>
+                            <li>
+                                <i class="fa fa-phone"></i>
+                                <strong>تلفن:</strong>
+                                <p class="preLine ltr text-left">@(((MainLayoutVM)ViewBag.MainLayoutVM).Phone)</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li>
+                                <i class="fa fa-fax"></i>
+                                <strong>فکس:</strong>
+                                <p class="preLine ltr text-left">@(((MainLayoutVM)ViewBag.MainLayoutVM).Fax)</p>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope"></i>
+                                <strong>ایمیل:</strong>
+                                @(((MainLayoutVM)ViewBag.MainLayoutVM).Email)
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <ul class="quick-menu">
+                            <li>
+                                <a class="active" href="/">خانه</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action(MVC.Blog.Index())">اخبار</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action(MVC.DynamicPage.Index().AddRouteValues(new { pageName = "rule" }))">قوانین و مقررات</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action(MVC.DynamicPage.Index().AddRouteValues(new { pageName = "privacy" }))">حریم شخصی کاربران</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action(MVC.SiteMap.Index())">نقشه سایت</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action(MVC.ContactUs.Index())">تماس با ما</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action(MVC.XML.RSS())">خبرخوان</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-5 copyright">
+                        Copyright 2016 – <a href="/" title="پیمان موکت">Peyman Moquette ©</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
+    @RenderSection("FooterPanel", false)
+    @Scripts.Render("~/Content/Scripts/MainJs2", "~/Content/Scripts/MainJs3")
+</body>
+</html>

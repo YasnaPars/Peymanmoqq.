@@ -1,0 +1,148 @@
+﻿@model Statistic
+
+@{
+    ViewBag.Title = "لیست آمار بازدید";
+}
+
+@section HeadPanel {
+    <script id="entry-template" type="text/x-handlebars-template">
+        {{#each List}}
+        <tr>
+            <td>
+                {{index}}
+            </td>
+            <td>
+                {{#ifZero Firefox}}
+                {{Firefox}}
+                {{/ifZero}}
+            </td>
+            <td>
+                {{#ifZero Chrome}}
+                {{Chrome}}
+                {{/ifZero}}
+            </td>
+            <td>
+                {{#ifZero IE}}
+                {{IE}}
+                {{/ifZero}}
+            </td>
+            <td>
+                {{#ifZero Opera}}
+                {{Opera}}
+                {{/ifZero}}
+            </td>
+            <td>
+                {{#ifZero Safari}}
+                {{Safari}}
+                {{/ifZero}}
+            </td>
+            <td>
+                {{#ifZero Mozilla}}
+                {{Mozilla}}
+                {{/ifZero}}
+            </td>
+            <td>
+                {{#ifZero BlackBerry}}
+                {{BlackBerry}}
+                {{/ifZero}}
+            </td>
+            <td>
+                {{#ifZero Unknown}}
+                {{Unknown}}
+                {{/ifZero}}
+            </td>
+            <td>
+                {{Date}}
+            </td>
+            <td>
+                {{Count}}
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+    <script type="text/javascript">
+        var selectUrl = '@Url.Action(MVC.Admin.Statistic.SelectList())';
+    </script>
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="page-head">
+        <div class="row">
+            <div class="col-sm-9">
+                <h2>@ViewBag.Title</h2>
+            </div>
+            @Html.Partial(MVC.Admin.Shared.Views._PartialPageSize)
+        </div>
+    </div>
+    <div class="cl-mcont">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="block-flat">
+                    <div class="content">
+                        <div>
+                            <ul class="pagination"></ul>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table no-border text-center" id="grdData">
+                                <thead class="no-border">
+                                    <tr class="primary-emphasis">
+                                        <th class="text-center">ردیف</th>
+                                        <th class="text-center">
+                                            @Html.DisplayNameFor(model => model.Firefox)
+                                            <img src="~/Content/Admin/Images/firefox.png" />
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.DisplayNameFor(model => model.Chrome)
+                                            <img src="~/Content/Admin/Images/chrome.png" />
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.DisplayNameFor(model => model.IE)
+                                            <img src="~/Content/Admin/Images/ie.png" />
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.DisplayNameFor(model => model.Opera)
+                                            <img src="~/Content/Admin/Images/opera.png" />
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.DisplayNameFor(model => model.Safari)
+                                            <img src="~/Content/Admin/Images/safari.png" />
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.DisplayNameFor(model => model.Mozilla)
+                                            <img src="~/Content/Admin/Images/mozilla.png" />
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.DisplayNameFor(model => model.BlackBerry)
+                                            <img src="~/Content/Admin/Images/blackberry.png" />
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.DisplayNameFor(model => model.Unknown)
+                                            <img src="~/Content/Admin/Images/unknown.png" />
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.DisplayNameFor(model => model.Date)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.DisplayNameFor(model => model.Total)
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="no-border-x tbody"></tbody>
+                            </table>
+                            <div class="loadingPart">
+                                <div class="loadingHolder">
+                                    <img src="~/Content/Admin/Images/loading1.gif" width="30" height="30" />
+                                    <p>لطفا چند لحظه صبر کنید</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="emptyResult"></h4>
+                        <div>
+                            <ul class="pagination"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

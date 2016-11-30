@@ -1,0 +1,67 @@
+﻿<!--Declarative HTML Helpers-->
+
+@helper ShowMenu(IList<BLL.DynamicMenu> list)
+{
+    foreach (var item in list)
+    {
+        bool status = (item.Children != null && item.Children.Any());
+        <li @(status ? (item.ParentID == null ? "class=dropdown" : "class=dropdown-submenu") : "")>
+            <a href="@item.Location" @if (status) { <text>data-toggle="dropdown" class="dropdown-toggle disabled"</text> }>
+                @item.Title
+
+                @if (status && item.ParentID == null)
+                {
+                    <span class="caret"></span>
+                }
+            </a>
+
+            @if (status)
+            {
+                <ul class="dropdown-menu">
+                    @ShowMenu(item.Children)
+                </ul>
+            }
+        </li>
+    }
+}
+
+@helper ShowDropDownMenu(IList<BLL.DynamicMenu> list, int? parentID, string parentTitle)
+{
+    foreach (var item in list)
+    {
+        <option value="@item.ID" @if (item.ID == parentID) { <text> selected="selected" </text>  }>
+            @if (!string.IsNullOrWhiteSpace(parentTitle))
+            {
+                @(parentTitle + " - " + item.Title)
+            }
+            else
+            {
+                @item.Title
+            }
+        </option>
+
+        if (item.Children != null && item.Children.Any())
+        {
+            @ShowDropDownMenu(item.Children, parentID, (parentTitle + " - " + item.Title))
+        }
+    }
+}
+
+@helper ShowSiteMap(IList<BLL.DynamicMenu> list)
+{
+    foreach (var item in list)
+    {
+        <li @(list.Last() == item ? "class=last" : "")>
+            <a href="@item.Location">
+                @item.Title
+            </a>
+
+            @if (item.Children != null && item.Children.Any())
+            {
+                <ul class="sitemap">
+                    @ShowSiteMap(item.Children)
+                </ul>
+            }
+        </li>
+    }
+}

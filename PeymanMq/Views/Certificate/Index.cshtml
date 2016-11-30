@@ -1,0 +1,74 @@
+﻿@section HeadPanel {
+    @Styles.Render("~/Content/Plugins/FancyBox/FancyBoxCss")
+    <script id="entry-template" type="text/x-handlebars-template">
+        {{#each List}}
+        <div class="col-sm-6 col-md-4">
+            <article class="post-blog">
+                <div class="gallery-box">
+                    <div class="offer-focus">
+                        {{#if FileUploadUrl}}
+                        <img class="img-responsive" src="/Data/Admin/{{FileUploadUrl}}?w=737&h=383&mode=pad&scale=both" title="{{Title}}" alt="{{Alt}}" />
+                        {{else}}
+                        <img class="img-responsive" src="/Content/Admin/Images/no-pic.jpg?w=737&h=383&mode=pad&scale=both" title="{{Title}}" alt="{{Alt}}" />
+                        {{/if}}
+                        <div class="offer-filter">
+                            <div class="offer-hover">
+                                <div class="offer-hover2">
+                                    {{#if FileUploadUrl}}
+                                    <a class="fancybox" href="/Data/Admin/{{FileUploadUrl}}" data-fancybox-group="gallery" title="{{Title}}">
+                                        <i class="fa fa-search" title="بزرگنمایی تصویر"></i>
+                                    </a>
+                                    {{else}}
+                                    <a class="fancybox" href="/Content/Admin/Images/no-pic.jpg" data-fancybox-group="gallery" title="{{Title}}">
+                                        <i class="fa fa-search" title="بزرگنمایی تصویر"></i>
+                                    </a>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-blog">
+                    <h3>
+                        {{#if FileUploadUrl}}
+                        <a class="fancybox" href="/Data/Admin/{{FileUploadUrl}}" data-fancybox-group="gallery" title="{{Title}}">
+                            {{Title}}
+                        </a>
+                        {{else}}
+                        <a class="fancybox" href="/Content/Admin/Images/no-pic.jpg" data-fancybox-group="gallery" title="{{Title}}">
+                            {{Title}}
+                        </a>
+                        {{/if}}
+                    </h3>
+                    <div class="clearfix"></div>
+                </div>
+            </article>
+        </div>
+        {{/each}}
+    </script>
+    <script type="text/javascript">
+        var selectUrl = '@Url.Action(MVC.Certificate.Select())';
+    </script>
+}
+
+<div class="col-xs-12 text-center">
+    <ul class="pagination"></ul>
+</div>
+<div id="grdData" class="pos-relative">
+    <div class="tbody"></div>
+    <div class="loadingPart">
+        <div class="loadingHolder">
+            <img src="~/Content/Admin/Images/loading1.gif" width="30" height="30" />
+            <p>لطفا چند لحظه صبر کنید</p>
+        </div>
+    </div>
+    <h4 class="emptyResult"></h4>
+    <div class="clearfix"></div>
+</div>
+<div class="col-xs-12 text-center">
+    <ul class="pagination"></ul>
+</div>
+
+@section FooterPanel {
+    @Scripts.Render("~/Content/Plugins/FancyBox/FancyBoxJs")
+}

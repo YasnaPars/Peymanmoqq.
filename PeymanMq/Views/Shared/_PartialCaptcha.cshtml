@@ -1,0 +1,12 @@
+﻿@model Tuple<int, int, int>
+
+<img alt="کد امنیتی" class="imgCaptcha" src="@Url.Action(MVC.Captcha.CaptchaImage().AddRouteValues(new { prefix = Model.Item1, width = Model.Item2, height = Model.Item3 }))" width="@Model.Item2" height="@Model.Item3" />
+<a title="تصویر جدید" class="refreshCaptcha"><i class='fa fa-refresh'></i></a>
+
+<script type="text/javascript">
+    $(function () {
+        $('a.refreshCaptcha').click(function () {
+            $(this).siblings("img.imgCaptcha").attr("src", "/Captcha/CaptchaImage?prefix=@Model.Item1&width=@Model.Item2&height=@Model.Item3&date" + new Date().getTime());
+        });
+    });
+</script>

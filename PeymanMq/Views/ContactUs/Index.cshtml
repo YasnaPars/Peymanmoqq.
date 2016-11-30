@@ -1,0 +1,142 @@
+﻿@model ContactInsertVM
+
+<div class="col-xs-12">
+    <h2 class="title-design mb25">ارتباط با پیمان موکت</h2>
+</div>
+<div class="col-xs-12">
+    <iframe id="gmap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10815.734147657306!2d59.559564500538194!3d36.29928258664277!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDE3JzU2LjgiTiA1OcKwMzMnNDguOCJF!5e0!3m2!1sen!2sir!4v1473354672183"></iframe>
+</div>
+<div class="col-sm-7 col-sm-push-5">
+    <div class="form-info">
+        <p>لطفا نظرات، پیشنهادات و انتقادات خود را با ما در میان بگذارید.</p>
+        <div class="col-xs-12">
+            <div class="row">
+                <i class="fa fa-map-marker"></i>
+                <div class="col-xs-10 col-sm-9 col-md-10 col-lg-11">
+                    <span>کارخانه:</span>
+                    <p>@(((MainLayoutVM)ViewBag.MainLayoutVM).Factory)</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <i class="fa fa-map-marker"></i>
+                <div class="col-xs-10 col-sm-9 col-md-10 col-lg-11">
+                    <span>دفتر مرکزی:</span>
+                    <p>@(((MainLayoutVM)ViewBag.MainLayoutVM).Address)</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <i class="fa fa-phone"></i>
+                <div class="col-xs-10 col-sm-9 col-md-10 col-lg-11">
+                    <span>تلفن:</span>
+                    <p class="dir-ltr preLine">@(((MainLayoutVM)ViewBag.MainLayoutVM).Phone)</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <i class="fa fa-fax"></i>
+                <div class="col-xs-10 col-sm-9 col-md-10 col-lg-11">
+                    <span>فکس:</span>
+                    <p class="dir-ltr">@(((MainLayoutVM)ViewBag.MainLayoutVM).Fax)</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <i class="fa fa-mobile"></i>
+                <div class="col-xs-10 col-sm-9 col-md-10 col-lg-11">
+                    <span>موبایل:</span>
+                    <p class="dir-ltr">@(((MainLayoutVM)ViewBag.MainLayoutVM).Mobile)</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <i class="fa fa-send"></i>
+                <div class="col-xs-10 col-sm-9 col-md-10 col-lg-11">
+                    <span>تلگرام:</span>
+                    <a href="@(((MainLayoutVM)ViewBag.MainLayoutVM).TelegramLink)" target="_blank" class="dir-ltr">کانال تلگرام</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <i class="fa fa-envelope"></i>
+                <div class="col-xs-10 col-sm-9 col-md-10 col-lg-11">
+                    <span>ایمیل:</span>
+                    <p class="dir-ltr">@(((MainLayoutVM)ViewBag.MainLayoutVM).Email)</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="visible-xs col-xs-12">
+    <hr />
+</div>
+<div class="clearfix visible-xs"></div>
+<div class="col-sm-5 col-sm-pull-7">
+    @using (Html.BeginForm(MVC.ContactUs.Index(), FormMethod.Post, new { @class = "form-contact", role = "form" }))
+    {
+        if (!string.IsNullOrWhiteSpace(ViewBag.Alert))
+        {
+            @Html.Raw(ViewBag.Alert)
+        }
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullName)
+            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FullName, string.Empty, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone)
+            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control ltr text-left" } })
+            @Html.ValidationMessageFor(model => model.Phone, string.Empty, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mobile)
+            @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control ltr text-left" } })
+            @Html.ValidationMessageFor(model => model.Mobile, string.Empty, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email)
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control ltr text-left" } })
+            @Html.ValidationMessageFor(model => model.Email, string.Empty, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subject)
+            @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Subject, string.Empty, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Body)
+            @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control", rows = "4" } })
+            @Html.ValidationMessageFor(model => model.Body, string.Empty, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @Html.LabelFor(model => model.Captcha, new { @class = "col-sm-12" })
+            </div>
+            @Html.EditorFor(model => model.Captcha, new { htmlAttributes = new { @class = "form-control float-none col-xs-3 col-sm-4" } })
+            @Html.Partial(MVC.Shared.Views._PartialCaptcha, new Tuple<int, int, int>(1, 130, 22))
+            <div class="form-group">
+                @Html.ValidationMessageFor(model => model.Captcha, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-submit btn-lg">ارسال پیام</button>
+        </div>
+    }
+</div>

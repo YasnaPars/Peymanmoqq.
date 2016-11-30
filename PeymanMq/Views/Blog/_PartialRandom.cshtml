@@ -1,0 +1,18 @@
+﻿@model List<Blog> 
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@(item.Url != null ? item.Url : Url.Action(MVC.Blog.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() })))" title="@item.Title">
+                <img src="@(item.FileUploadID == null ? "/Content/Images/no-pic.jpg?w=55&h=45&mode=crop&scale=both" : string.Format("/Data/Admin/{0}?w=55&h=45&mode=crop&scale=both", item.FileUpload.RealName))" alt="@item.Title" />
+            </a>
+            <h4>
+                <a href="@(item.Url != null ? item.Url : Url.Action(MVC.Blog.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() })))" title="@item.Title">
+                    @(item.Title.Length > 65 ? (item.Title.Substring(0, 65) + " ...") : item.Title)
+                </a>
+            </h4>
+            <div class="clear"></div>
+        </li>
+    }
+</ul>

@@ -1,0 +1,29 @@
+﻿@model Tuple<List<AdminNotificationVM>, int>
+
+<ul class="nav navbar-nav navbar-left not-nav">
+    <li class="button dropdown">
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle" data-trigger="hover" data-placement="right" data-content="اعلانات" data-popover="popover">
+            <i class="fa fa-globe"></i>
+            <span class="bubble">@Model.Item2</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <div class="nano nscroller">
+                    <div class="content">
+                        <ul>
+                            <li>
+                                <p class="text-info small text-center">اعلانها هر نیمساعت یکبار بروز میشوند</p>
+                            </li>
+                            @foreach (var item in Model.Item1)
+                            {
+                                <li>
+                                    <a href="@item.Url"><i class="@item.ClassName"></i><b>@item.Count</b> @item.Title</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>

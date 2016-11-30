@@ -1,0 +1,129 @@
+﻿@model LoginChangePasswordVM
+
+@{
+    ViewBag.Title = "ویرایش پروفایل";
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="page-head">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+    <div class="cl-mcont">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="block-flat">
+                    <div class="header">
+                        <h3>تغییر رمز ورود به پنل</h3>
+                    </div>
+                    <div class="content">
+                        @using (Html.BeginForm(MVC.Admin.EditProfile.Index(), FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    @if (!string.IsNullOrWhiteSpace(ViewBag.Alert))
+                                    {
+                                        @Html.Raw(ViewBag.Alert)
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OldPassword, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(model => new LoginChangePasswordVM().OldPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="col-sm-6">
+                                    @Html.ValidationMessageFor(model => model.OldPassword, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NewPassword, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(model => new LoginChangePasswordVM().NewPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="col-sm-6">
+                                    @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NewPasswordConfirm, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(model => new LoginChangePasswordVM().NewPasswordConfirm, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="col-sm-6">
+                                    @Html.ValidationMessageFor(model => model.NewPasswordConfirm, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-pencil-square-o"></i> ویرایش
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="header">
+                        <h3>ویرایش ایمیل های سایت</h3>
+                    </div>
+                    <div class="content">
+                        <h4 class="color-warning">در صورت تغییر رمز ایمیل های زیر در سرویس ایمیل مربوطه، لطفا تغییرات جدید را در اینجا لحاظ نمایید. در غیر اینصورت سرویس ایمیل سایت از کار میوفتد.</h4>
+                        <div class="form-group">
+                            <div class="col-sm-6" id="alertText"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        @foreach (var item in Email.Select())
+                        {
+                            using (Ajax.BeginForm(MVC.Admin.EditProfile.Update(), new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = "alertText",
+                                OnFailure = "alert('خطایی رخ داده است')",
+                                OnComplete = "ShowResult",
+                                OnBegin = "ClearForm"
+                            }, new { @class = "form-horizontal editPanel", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">@Html.DisplayNameFor(model => item.Username)</label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(model => item.Username, new { @class = "form-control" })
+                                        <small>@Html.DisplayFor(model => item.Description)</small>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        @Html.ValidationMessageFor(model => item.Username, "", new { @class = "color-danger" })
+                                        @Html.HiddenFor(model => item.ID)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">@Html.DisplayNameFor(model => item.Password)</label>
+                                    <div class="col-sm-4">
+                                        @Html.PasswordFor(model => item.Password, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-sm-6">
+                                        @Html.ValidationMessageFor(model => item.Password, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-pencil-square-o"></i> ویرایش
+                                        </button>
+                                        <span class="loadingProgress display-none">
+                                            <img src="~/Content/Admin/Images/loading2.gif" alt="loading..." />
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+﻿@model DynamicMenuInsertVM
+
+@section HeadPanel {
+    <script type="text/javascript">
+        var menuUrl = '@Url.Action(MVC.Admin.DynamicMenu.SelectMenu())';
+    </script>
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="page-head">
+        <div class="row">
+            <div class="col-sm-9">
+                <h2>@ViewBag.Title</h2>
+            </div>
+            <div class="col-sm-3">
+                <div class="btn-group pull-left">
+                    <a class="btn btn-sm btn-primary" href="@Url.Action(MVC.Admin.DynamicMenu.Index())">
+                        <i class="fa fa-arrow-left"></i>
+                    </a>
+                    <a class="btn btn-sm btn-default" href="@Url.Action(MVC.Admin.DynamicMenu.Index())">مشاهده لیست</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cl-mcont">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="block-flat">
+                    <div class="content">
+                        @using (Html.BeginForm(MVC.Admin.DynamicMenu.Update(), FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.HiddenSubMenuID)
+
+                            if (!string.IsNullOrWhiteSpace(ViewBag.Alert))
+                            {
+                                <div class="form-group">
+                                    <div class="col-sm-8">
+                                        @Html.Raw(ViewBag.Alert)
+                                    </div>
+                                </div>
+                            }
+                            <h4 class="color-warning">برای استفاده از صفحات آماده، در ابتدای هر آدرس یک اسلش و سپس نام صفحه نوشته شود. مانند: sitemap/</h4>
+                            <h4 class="color-warning">برای ایجاد یک صفحه جدید، بدین صورت عمل شود: page/page-name/</h4>
+                            <div class="clearfix">
+                                @Html.Raw(Model.ReadyPages)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Title, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="col-sm-4">
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ParentID, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-6">
+                                    <select name="@Html.NameFor(model => model.ParentID)" id="@Html.NameFor(model => model.ParentID)" class="select2">
+                                        <option value="">ریشه</option>
+                                        @DHH.ShowDropDownMenu(DynamicMenu.Select(2), Model.ParentID, "")
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    @Html.ValidationMessageFor(model => model.ParentID, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SubMenuID, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-3">
+                                    <img src="~/Content/Images/loading2.gif" class="display-none" />
+                                    @Html.DropDownListFor(model => model.SubMenuID, Enumerable.Empty<SelectListItem>(), new { @class = "form-control", id = "ddlSubMenu" })
+                                </div>
+                                <div class="col-sm-7">
+                                    @Html.ValidationMessageFor(model => model.SubMenuID, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Location, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control ltr" } })
+                                </div>
+                                <div class="col-sm-3">
+                                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Icon, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-3">
+                                    @Html.EditorFor(model => model.Icon, new { htmlAttributes = new { @class = "form-control ltr" } })<br />
+                                </div>
+                                <div class="col-sm-7">
+                                    @Html.ValidationMessageFor(model => model.Icon, "", new { @class = "color-danger" })
+                                    <small class="color-primary">مثال: fa-download . لیست آیکون ها در سایت <a href="http://fontawesome.io/icons" target="_blank">http://fontawesome.io/icons</a></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Status, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-3">
+                                    @Html.EnumDropDownListFor(model => model.Status, new { @class = "form-control" })
+                                </div>
+                                <div class="col-sm-7">
+                                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-floppy-o"></i> ذخیره
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

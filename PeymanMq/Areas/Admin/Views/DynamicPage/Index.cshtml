@@ -1,0 +1,113 @@
+﻿@model DynamicPageVM
+
+@{
+    ViewBag.Title = "صفحات داینامیک";
+}
+
+@section HeadPanel {
+    <script src="~/Content/Admin/Plugins/CKEditor_4.5.3/ckeditor.js"></script>
+    @Styles.Render("~/Content/Admin/Styles/TagEditor/TagEditorCss")
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="page-head">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+    <div class="cl-mcont">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="block-flat">
+                    <div class="content">
+                        @using (Html.BeginForm(MVC.Admin.DynamicPage.Select(), FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            if (!string.IsNullOrWhiteSpace(ViewBag.Alert))
+                            {
+                                <div class="form-group">
+                                    <div class="col-sm-7">
+                                        @Html.Raw(ViewBag.Alert)
+                                    </div>
+                                </div>
+                            }
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PageID, new { @class = "col-sm-1 control-label" })
+                                <div class="col-sm-5">
+                                    @Html.DropDownListFor(model => model.PageID, Model.List, "-- یک صفحه را انتخاب نمایید --", new { @class = "select2" })
+                                </div>
+                            </div>
+                        }
+
+                        @using (Html.BeginForm(MVC.Admin.DynamicPage.Index(), FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.EditorFor(model => model.PageID)
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DynamicPage.Title, new { @class = "col-sm-1 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.DynamicPage.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DynamicPage.Body, new { @class = "col-sm-1 control-label" })
+                                <div class="col-sm-11">
+                                    @Html.EditorFor(model => model.DynamicPage.Body, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DynamicPage.MetaKeywords, new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.DynamicPage.MetaKeywords, new { htmlAttributes = new { rows = "6", @class = "form-control tagEditorInput2" } })<br />
+                                    <small class="color-primary">حداکثر 10 کلمه (برای جدا کردن کلمات Enter بزنید یا علامت | (پایپ) بگذارید)</small>
+                                </div>
+                                <div class="col-sm-4">
+                                    @Html.ValidationMessageFor(model => model.DynamicPage.MetaKeywords, "", new { @class = "color-danger" })
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DynamicPage.MetaDescription, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.DynamicPage.MetaDescription, new { htmlAttributes = new { rows = "6", @class = "form-control" } })<br />
+                                        <small class="color-primary">حداکثر 200 کاراکتر (Enter زده نشود)</small>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @Html.ValidationMessageFor(model => model.DynamicPage.MetaDescription, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DynamicPage.ExtraContent, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.DynamicPage.ExtraContent, new { htmlAttributes = new { rows = "6", @class = "form-control" } })<br />
+                                        <small class="color-primary">حداکثر 500 کاراکتر</small>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @Html.ValidationMessageFor(model => model.DynamicPage.ExtraContent, "", new { @class = "color-danger" })
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-2">
+                                    <button type="submit" class="btn btn-primary" name="BtnDynamicPage" value="save">
+                                        <i class="fa fa-floppy-o"></i> ذخیره
+                                    </button>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-danger" name="BtnDynamicPage" value="delete" onclick="javascript:return confirm('آیا از حذف این صفحه مطمئن هستید؟')">
+                                        <i class="fa fa-trash-o"></i> حذف
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section FooterPanel {
+    @Scripts.Render("~/Content/Admin/Scripts/TagEditor/TagEditorJs")
+}

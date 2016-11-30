@@ -1,0 +1,87 @@
+﻿@model Product
+
+@section HeadPanel {
+    @Styles.Render("~/Content/Plugins/FancyBox/FancyBoxCss", "~/Content/Plugins/RateIt/RateItCss")
+}
+
+@if (Model == null)
+{
+    ViewBag.Title = "مطلبی جهت نمایش وجود ندارد";
+    <div class="col-xs-12">
+        <h4>مطلبی جهت نمایش وجود ندارد. ممکن است این مطلب حذف شده یا آدرس آن تغییر کرده باشد.</h4>
+    </div>
+}
+else
+{
+    ViewBag.Title = Model.Title;
+    ViewBag.MetaKeywords = Model.MetaKeywords;
+    ViewBag.MetaDescription = Model.MetaDescription;
+    ViewBag.ExtraContent = Model.ExtraContent;
+    <div class="col-sm-4 col-sm-push-8">
+        <div class="offer-focus">
+            <img class="img-responsive center-block" src="@(Model.FileUploadID == null ? "/Content/Images/no-pic.jpg?w=360&mode=crop" : string.Format("/Data/Admin/{0}?w=360&mode=crop", Model.FileUpload.RealName))" alt="@Model.Title" />
+            <div class="offer-filter">
+                <div class="offer-hover">
+                    <div class="offer-hover2">
+                        <a class="fancybox" href="@(Model.FileUploadID == null ? "/Content/Images/no-pic.jpg" : string.Format("/Data/Admin/{0}", Model.FileUpload.RealName))" data-fancybox-group="gallery" title="@Model.Title">
+                            <i class="fa fa-search" title="بزرگنمایی تصویر"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8 col-sm-pull-4">
+        <div class="product-info">
+            <h2 class="title-design mb25">@Html.DisplayFor(model => model.Title)</h2>
+            <ul>
+                <li>
+                    <span>کد:</span>
+                    @Html.DisplayFor(model => model.Code)
+                </li>
+                <li>
+                    <span>رنگ ها:</span>
+                    <ul>
+                        @foreach (var item in Model.Color.Split(';'))
+                        {
+                            <li>
+                                <i class="fa fa-check"></i> @item
+                            </li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+            @{ Html.RenderAction(MVC.Product.SelectRate(Model.ID)); }
+            <p class="preLine">@Html.DisplayFor(model => model.ShortBody)</p>
+            <a class="btn btn-lg btn-submit" href="@Html.DisplayTextFor(model => model.CatalogUrl)" target="_blank">
+                <i class="fa fa-download"></i>
+                @Html.DisplayFor(model => model.CatalogTitle)
+            </a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-xs-12">
+        <div class="content-dynamic">
+            @Html.Raw(Model.Body)
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-xs-12">
+        <hr />
+    </div>
+    @Html.Partial(MVC.Product.Views._PartialComment, new Tuple<List<CommentProduct>, int>(CommentProduct.SelectList(Model.ID), Model.ID))
+}
+
+<div class="col-xs-12">
+    <hr />
+</div>
+<div class="col-xs-12">
+    <h3 class="title-design mb25">چند محصول دیگر</h3>
+</div>
+<div class="clearfix"></div>
+@Html.Partial(MVC.Product.Views._PartialRandom, Model != null ? Product.Select(Model.ID) : Product.Select(0))
+
+@section FooterPanel {
+    @Scripts.Render("~/Content/Plugins/FancyBox/FancyBoxJs", "~/Content/Plugins/RateIt/RateItJs")
+}

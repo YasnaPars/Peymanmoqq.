@@ -1,0 +1,84 @@
+﻿@model Blog
+
+<div class="col-md-8">
+    <article class="post-blog post-blog2">
+        @if (Model == null)
+        {
+            ViewBag.Title = "مطلبی جهت نمایش وجود ندارد";
+            <h3>مطلبی جهت نمایش وجود ندارد. ممکن است این مطلب حذف شده یا آدرس آن تغییر کرده باشد.</h3>
+        }
+        else
+        {
+            ViewBag.Title = Model.Title;
+            ViewBag.MetaKeywords = Model.MetaKeywords;
+            ViewBag.MetaDescription = Model.MetaDescription;
+            ViewBag.ExtraContent = Model.ExtraContent;
+            <a class="pic-blog" href="@Url.Action(MVC.Blog.Details().AddRouteValues(new { id = Model.ID, text = Model.Title.ReplaceAllChar() }))">
+                <img class="img-responsive" src="@(Model.FileUploadID == null ? "/Content/Images/no-pic.jpg?w=750&h=390&mode=crop" : string.Format("/Data/Admin/{0}?w=750&h=390&mode=crop", Model.FileUpload.RealName))" alt="@Model.Title" />
+            </a>
+            <div class="box-blog">
+                <h3>
+                    <a href="@Url.Action(MVC.Blog.Details().AddRouteValues(new { id = Model.ID, text = Model.Title.ReplaceAllChar() }))">
+                        @Html.DisplayFor(model => model.Title)
+                    </a>
+                </h3>
+                <ul class="info-blog">
+                    <li>
+                        <a>
+                            <i class="fa fa-calendar"></i>
+                            @Model.Date.ToPersianDate("d MMMM yyyy ساعت HH:mm", true)
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-user"></i>
+                            توسط @(Model.UserSiteID == null ? "مدیر" : Model.UserSite.FullName)
+                        </a>
+                    </li>
+                </ul>
+                <div>
+                    @Html.Raw(Model.Body)
+                </div>
+            </div>
+        }
+    </article>
+    <div class="clearfix"></div>
+    <hr />
+    <div class="clearfix"></div>
+    <ul class="pager">
+        <li>
+            <a href="@Url.Action(MVC.Blog.Index())">
+                <i class="fa fa-angle-right"></i>
+                بازگشت
+            </a>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+    <hr />
+    <div class="clearfix"></div>
+    @if (Model != null)
+    {
+        @Html.Partial(MVC.Blog.Views._PartialComment, new Tuple<List<Comment>, int>(Comment.SelectList(Model.ID), Model.ID))
+    }
+</div>
+<div class="col-xs-12 visible-sm">
+    <hr />
+</div>
+<aside class="col-md-4">
+    <div class="last-news mb25">
+        <h3 class="title-design mb25">چند خبر دیگر</h3>
+        @Html.Partial(MVC.Blog.Views._PartialRandom, Model != null ? Blog.Select(Model.ID) : Blog.Select(0))
+    </div>
+    @if (Model != null && !string.IsNullOrWhiteSpace(Model.MetaKeywords))
+    {
+        <div class="tag-box mb25">
+            <h3 class="title-design mb25">برچسب ها</h3>
+            @foreach (var item in Model.MetaKeywords.Split(';'))
+            {
+                <a href="@Url.Action(MVC.Tag.Index().AddRouteValues(new { keyword = item }))">
+                    @item
+                </a>
+            }
+        </div>
+    }
+</aside>

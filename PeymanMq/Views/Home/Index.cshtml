@@ -1,0 +1,113 @@
+﻿@section HeadPanel {
+    @Styles.Render("~/Content/Plugins/Revolution-Slider/RevolutionSliderCss", "~/Content/Plugins/OwlCarousel/OwlCarouselCss", "~/Content/Plugins/FancyBox/FancyBoxCss")
+}
+
+@section SliderPanel {
+    @Html.Partial(MVC.Home.Views._PartialSlider, Slider.SelectList())
+}
+
+<div class="box-title col-xs-12 text-center mb60">
+    <h2 class="mb25">پیمان موکت، بزرگترین صادر کننده موکت در ایران</h2>
+</div>
+@Html.Partial(MVC.Home.Views._PartialPanel, Panel.SelectList())
+<div class="clearfix"></div>
+<div class="col-xs-12">
+    <hr class="line-lines text-center" />
+    <div class="clearfix"></div>
+</div>
+<div class="box-title col-xs-12 text-center mb60">
+    <h2 class="mb25">جدیدترین محصولات پیمان موکت</h2>
+</div>
+<div class="col-xs-12">
+    <section class="portfolio-mosaic">
+        <div class="row">
+            <div class="col-sm-6 col-md-3">
+                <article class="first text-center">
+                    <a href="@Url.Action(MVC.ProductCategory.Index())">
+                        <h2>آخرین محصولات</h2>
+                    </a>
+                </article>
+            </div>
+            @foreach (var item in ProductJoinProductCategory.SelectLast())
+            {
+                <div class="col-sm-6 col-md-3">
+                    <article>
+                        <figure>
+                            <a href="@(Url.Action(MVC.Product.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() })))">
+                                <img class="img-responsive" src="@(item.FileUploadUrl == null ? "/Content/Images/no-pic.jpg?w=700&h=545&mode=crop&scale=both" : string.Format("/Data/Admin/{0}?w=700&h=545&mode=crop&scale=both", item.FileUploadUrl))" alt="@item.Title" />
+                            </a>
+                            <figcaption>
+                                <a href="@(Url.Action(MVC.Product.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() })))" title="@item.Title">
+                                    <h3>@(item.Title.Length > 35 ? item.Title.Substring(0, 35) + " ..." : item.Title)</h3>
+                                </a>
+                                <p title="@item.ShortBody">
+                                    @(item.ShortBody.Length > 130 ? item.ShortBody.Substring(0, 130) + " ..." : item.ShortBody)
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div>
+            }
+        </div>
+        <div class="clearfix"></div>
+    </section>
+</div>
+<div class="clearfix"></div>
+<div class="col-xs-12">
+    <hr class="line-lines text-center" />
+    <div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
+<div class="box-title col-xs-12 text-center mb60">
+    <h2 class="mb25">آخرین اخبار پیمان موکت</h2>
+</div>
+<div class="col-xs-12">
+    <div class="box-items mb60">
+        <div class="row">
+            @foreach (var item in Blog.SelectLast())
+            {
+                <article class="col-sm-6 col-md-3">
+                    <figure>
+                        <a href="@(item.Url != null ? item.Url : Url.Action(MVC.Blog.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() })))">
+                            <img class="img-responsive" src="@(item.FileUploadUrl == null ? "/Content/Images/no-pic.jpg?w=700&h=550&mode=crop&scale=both" : string.Format("/Data/Admin/{0}?w=700&h=550&mode=crop&scale=both", item.FileUploadUrl))" alt="@item.Title" />
+                        </a>
+                        <figcaption>
+                            <ul>
+                                <li>
+                                    <a href="@(item.Url != null ? item.Url : Url.Action(MVC.Blog.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() })))" title="بازدیدکنندگان">
+                                        <i class="fa fa-eye"></i>@item.VisitCount
+                                    </a>
+                                </li>
+                                <li class="last">
+                                    <a href="@(item.Url != null ? item.Url : Url.Action(MVC.Blog.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() })))" title="مشاهده">
+                                        <i class="fa fa-link"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </figcaption>
+                    </figure>
+                    <section class="box-content">
+                        <h3>
+                            <a href="@(item.Url != null ? item.Url : Url.Action(MVC.Blog.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() })))" title="@item.Title">
+                                @(item.Title.Length > 65 ? item.Title.Substring(0, 65) + " ..." : item.Title)
+                            </a>
+                        </h3>
+                        <p title="@item.ShortBody">
+                            @(item.ShortBody.Length > 70 ? item.ShortBody.Substring(0, 70) + " ..." : item.ShortBody)
+                        </p>
+                        <a href="@(item.Url != null ? item.Url : Url.Action(MVC.Blog.Details().AddRouteValues(new { id = item.ID, text = item.Title.ReplaceAllChar() })))">
+                            <i class="fa fa-long-arrow-left"></i>
+                            ادامه مطلب
+                        </a>
+                        <div class="clearfix"></div>
+                    </section>
+                </article>
+            }
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+@Html.Partial(MVC.Home.Views._PartialCertificate, Certificate.SelectList())
+
+@Scripts.Render("~/Content/Plugins/Revolution-Slider/RevolutionSliderJs", "~/Content/Plugins/OwlCarousel/OwlCarouselJs", "~/Content/Plugins/FancyBox/FancyBoxJs")

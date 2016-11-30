@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "داشبورد";
+}
+
+@section HeadPanel {
+    <script type="text/javascript">
+        var updateDynamicPartUrl = '@Url.Action(MVC.Admin.DynamicPart.Update())';
+    </script>
+}
+
+<div id="pcont" class="container-fluid">
+    <div class="cl-mcont">
+        <div class="row dash-cols">
+            <div class="col-sm-6 col-md-6">
+                <div class="block">
+                    <div class="header">
+                        <h2>گزارش آمار بازدید</h2>
+                    </div>
+                    @{ Html.RenderAction(MVC.Admin.Statistic.Select()); }
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <div class="block widget-notes">
+                    <div class="header dark">
+                        <h4>
+                            یادداشت
+                            <small id="msgAlert" class="display-none text-primary"></small>
+                            <button data-toggle="tooltip" title="ذخیره" data-placement="top" class="btnSaveNote btn btn-default btn-sm pull-left" type="button">
+                                <i class="fa fa-floppy-o"></i>
+                            </button>
+                        </h4>
+                    </div>
+                    <div class="content">
+                        <div contenteditable="true" class="paper">
+                            @{ Html.RenderAction(MVC.Admin.DynamicPart.Select("یادداشت")); }
+                        </div>
+                    </div>
+                    <div class="loadingPart">
+                        <div class="loadingHolder">
+                            <img src="~/Content/Admin/Images/loading1.gif" width="30" height="30" />
+                            <p>لطفا چند لحظه صبر کنید</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

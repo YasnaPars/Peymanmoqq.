@@ -1,0 +1,8 @@
+﻿@model DynamicPage
+
+<div class="col-xs-12">
+    <h2 class="title-design mb25">@ViewBag.Title</h2>
+    <div class="content-dynamic">
+        @Html.Raw(Model.Body)
+    </div>
+</div>

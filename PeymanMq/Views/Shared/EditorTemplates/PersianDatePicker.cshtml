@@ -1,0 +1,30 @@
+﻿@using System.Globalization
+
+@model DateTime?
+
+@{
+    Func<DateTime, string> ToPersianDate = date =>
+    {
+        var dateTime = new DateTime(date.Year, date.Month, date.Day, new GregorianCalendar());
+        var persianCalendar = new PersianCalendar();
+        return persianCalendar.GetYear(dateTime) + "/" +
+               persianCalendar.GetMonth(dateTime).ToString("00") + "/" +
+               persianCalendar.GetDayOfMonth(dateTime).ToString("00");
+    };
+
+    var today = ToPersianDate(DateTime.Now);
+    var value = Model.HasValue ? ToPersianDate(Model.Value) : string.Empty;
+    string requiredMessage = "";
+
+    foreach (var attr in @Html.GetUnobtrusiveValidationAttributes(@ViewData.TemplateInfo.HtmlFieldPrefix, @ViewData.ModelMetadata))
+    {
+        if (attr.Key == "data-val-required")
+        {
+            requiredMessage = attr.Value.ToString();
+        }
+    }
+}
+
+<input type="text" class="form-control cursor-text background-color1" name="@ViewData.TemplateInfo.HtmlFieldPrefix"
+       id="@ViewContext.ViewData.ModelMetadata.PropertyName" data-val-required="@requiredMessage"
+       value="@value" onclick="PersianDatePicker.Show(this,'@today');" readonly="readonly" data-val="true" />

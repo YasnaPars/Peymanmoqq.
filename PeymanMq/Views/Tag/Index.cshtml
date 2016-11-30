@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "نتایج";
+}
+
+@section HeadPanel {
+    <script id="entry-template" type="text/x-handlebars-template">
+        {{#each List}}
+        <li>
+            <h3>
+                <a href="{{Url}}">{{Title}}</a>
+            </h3>
+            <p class="preLine">{{ShortBody}}</p>
+            <a href="{{Url}}" class="continue" title="ادامه مطلب">ادامه مطلب ...</a>
+            <span><i class="fa fa-calendar"></i> {{CreateDate}}</span>
+            <div class="clearfix"></div>
+        </li>
+        {{/each}}
+    </script>
+    <script type="text/javascript">
+        var selectUrl = '@Url.Action(MVC.Tag.Select())';
+        var searchUrl = '@Url.Action(MVC.Tag.Index())';
+    </script>
+}
+
+<div class="col-sm-5 col-md-4 col-lg-3">
+    <div class="search-box">
+        <form class="form-block" role="form">
+            <div class="form-group">
+                <input type="text" class="form-control txtSearch" placeholder="برچسب مورد نظر" />
+                <a class="btn btnSearch">جستجو</a>
+            </div>
+        </form>
+        <div class="title-result">
+            نتایج جستجو برای
+            <span>"@Request.QueryString["keyword"]"</span>
+            <span class="totalRows"></span>
+        </div>
+        <div class="select-group">
+            <div class="form-horizontal col-xs-12">
+                <div class="form-group ddlSelect">
+                    <label for="ddlPageSize" class="control-label">تعداد نمایش:</label>
+                    <select class="form-control" id="ddlPageSize">
+                        <option>10</option>
+                        <option>50</option>
+                        <option>100</option>
+                        <option>500</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-7 col-md-8 col-lg-9">
+    <div id="grdData" class="search-result pos-relative">
+        <h4 class="emptyResult"></h4>
+        <div class="col-xs-12 text-center">
+            <ul class="pagination"></ul>
+        </div>
+        <div class="loadingPart">
+            <div class="loadingHolder">
+                <img src="~/Content/Admin/Images/loading1.gif" width="30" height="30" />
+                <p>لطفا چند لحظه صبر کنید</p>
+            </div>
+        </div>
+        <ul class="tbody"></ul>
+        <div class="col-xs-12 text-center">
+            <ul class="pagination"></ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script type="text/javascript">
+    var updateStarUrl = '@Url.Action(MVC.Admin.Contact.Update())';
+    var updateInboxConfirmMsg = 'آیا با انتقال رکوردها موافق هستید؟';
+    var updateInboxUrl = '@Url.Action(MVC.Admin.Contact.MoveInbox())';
+    var deleteAllUrl = '@Url.Action(MVC.Admin.Contact.Delete())';
+    var deleteAllConfirmMsg = 'آیا با حذف رکوردها موافق هستید؟';
+    var detailsUrl = '@Url.Action(MVC.Admin.Contact.Details())';
+    var messageContent = "<img src='/Content/Admin/Images/loading3.gif' width='45' />";
+</script>
+
+<div class="page-aside email">
+    <div class="fixed nano nscroller">
+        <div class="content">
+            <div class="header">
+                <button data-target=".mail-nav" data-toggle="collapse" type="button" class="navbar-toggle">
+                    <span class="fa fa-chevron-down"></span>
+                </button>
+                <h2 class="page-title">پیام ها</h2>
+            </div>
+            <div class="mail-nav collapse">
+                <ul class="nav nav-pills nav-stacked">
+                    @{ Html.RenderAction(MVC.Admin.Contact.Select()); }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+@RenderBody()

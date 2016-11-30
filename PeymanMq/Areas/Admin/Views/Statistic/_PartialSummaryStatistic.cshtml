@@ -1,0 +1,33 @@
+﻿@model SummaryStatisticVM
+
+<div class="content no-padding">
+    <ul class="items">
+        <li>
+            @Html.DisplayNameFor(model => model.Today)<span class="pull-left">@Html.DisplayFor(model => model.Today)</span>
+        </li>
+        <li>
+            @Html.DisplayNameFor(model => model.Yesterday)<span class="pull-left">@Html.DisplayFor(model => model.Yesterday)</span>
+        </li>
+        <li>
+            @Html.DisplayNameFor(model => model.Month)<span class="pull-left">@Html.DisplayFor(model => model.Month)</span>
+        </li>
+        <li>
+            @Html.DisplayNameFor(model => model.PrevMonth)<span class="pull-left">@Html.DisplayFor(model => model.PrevMonth)</span>
+        </li>
+        <li>
+            @Html.DisplayNameFor(model => model.Year)<span class="pull-left">@Html.DisplayFor(model => model.Year)</span>
+        </li>
+        <li>
+            @Html.DisplayNameFor(model => model.PrevYear)<span class="pull-left">@Html.DisplayFor(model => model.PrevYear)</span>
+        </li>
+        <li>
+            @Html.DisplayNameFor(model => model.Total)<span class="pull-left">@Html.DisplayFor(model => model.Total)</span>
+        </li>
+    </ul>
+</div>
+<div class="total-data bg-darkgray">
+    @Html.DisplayNameFor(model => model.MaxDay)<span class="pull-left">@Html.DisplayFor(model => model.MaxDay)</span>
+</div>
+<div class="total-data bg-blue">
+    @Html.DisplayNameFor(model => model.OnlineUsers)<span class="pull-left">@Html.DisplayFor(model => model.OnlineUsers)</span>
+</div>
